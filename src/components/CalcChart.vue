@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { PMT, ISPMT, PPMT } from 'formulajs';
 import CostChart from '@/components/CostChart';
 

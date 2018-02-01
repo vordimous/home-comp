@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "es5", "es2015"],
+    "target": "ES6",
+    "module": "commonjs",
+    "baseUrl": ".",
+    "paths": {
+        "models/*": [
+            "src/models/*"
+        ]
+    },
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true
+  },
+
+  "include": [
+      "./src/**/*.ts",
+      "./src/**/*.d.ts"
+  ]
+}
