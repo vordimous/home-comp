@@ -4,12 +4,12 @@
   p1
   grid-list-lg>
   <v-layout row wrap>
-    <v-flex xs12>
+    <v-flex xs12 class="pb-0">
       <calc-chart ref="chart" @add="add" :inputSets="inputSets"/>
     </v-flex>
   </v-layout>
   <v-layout row wrap>
-    <v-flex xs12>
+    <v-flex xs12 class="pa-0">
       <v-container fluid grid-list-md>
         <v-data-iterator
           content-tag="v-layout"

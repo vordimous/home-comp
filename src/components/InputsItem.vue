@@ -156,7 +156,7 @@
           type="number"></v-text-field>
       </v-flex>
     </v-layout>
-    <pre> {{JSON.stringify(item, null, 1)}}</pre>
+    <!-- <pre> {{JSON.stringify(item, null, 1)}}</pre> -->
   </v-container>
 </v-card>
 </template>
