@@ -5,7 +5,7 @@
   grid-list-lg>
   <v-layout row wrap>
     <v-flex xs12>
-      <calc-chart @add="add" :inputSets="inputSets"/>
+      <calc-chart ref="chart" @add="add" :inputSets="inputSets"/>
     </v-flex>
   </v-layout>
   <v-layout row wrap>
@@ -22,8 +22,6 @@
           <v-flex
             slot="item"
             slot-scope="props"
-            @test="console.log('swag')"
-            @calc="recalc(props.index)"
             xs12
             sm6
             md4
@@ -31,7 +29,7 @@
             <inputs-item
               :item="props.item"
               @remove="remove(props.index)"
-              @updated="recalc(props.index, props.item)">
+              @updated="recalc">
             </inputs-item>
           </v-flex>
         </v-data-iterator>
@@ -78,8 +76,8 @@ export default {
     remove(i) {
       this.inputSets.splice(i, 1);
     },
-    recalc(i, data) {
-      this.inputSets.$set(i, data);
+    recalc() {
+      this.$refs.chart.updateGraph();
     },
   },
 };
