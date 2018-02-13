@@ -4,7 +4,7 @@ export default class DataSet {
     if (!fields || !fields.color) {
       color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
     } else {
-      color = fields.color;
+      ({ color } = fields);
     }
     // Default values defined according to iTunes API
     const defaults = {

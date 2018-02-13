@@ -9,17 +9,20 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap align-center>
-      <v-flex xs4>
-        <v-slider :label="`Years: ${years.toString()}`" v-model="years"></v-slider>
+      <v-flex xs1>
+        <v-btn small p1 color="success" @click="$emit('add')">Add</v-btn>
       </v-flex>
-      <v-flex xs4>
+      <v-flex xs3>
+        <v-slider :label="`Years: ${years.toString()}`" v-model="years" max="50"></v-slider>
+      </v-flex>
+      <v-flex xs5>
         <v-slider
           :label="`Monthy Budget: ${monthyInc.toString()}`"
           v-model="monthyInc"
           max="10000"
           step="100"></v-slider>
       </v-flex>
-      <v-flex xs4>
+      <v-flex xs3>
         <v-slider
           :label="`Annual Value Icrease: ${(valIncrease * 100).toFixed(1).toString()}%`"
           v-model="valIncrease"

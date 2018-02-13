@@ -5,43 +5,37 @@
   grid-list-lg>
   <v-layout row wrap>
     <v-flex xs12>
-      <calc-chart :inputSets="inputSets"/>
-    </v-flex>
-  </v-layout>
-  <v-layout row wrap
-    v-for="(inputs, i) in inputSets" :key="inputs.id">
-    <v-flex xs12>
-      <v-card tile>
-        <v-card-title primary-title>
-          <v-btn @click="remove(i)"
-            small
-            color="error">
-              <v-icon>delete</v-icon>
-            </v-btn>
-          <h3 v-bind:style="{color: inputs.color}">Calculation</h3>
-        </v-card-title>
-        <v-container fluid class="pb-1">
-          <v-layout row>
-            <v-flex xs6 class="pa-1">
-              <v-text-field
-                label="Purchase Price (Value)"
-                :value="inputs.pp"
-                @blur="recalc(i, $data)"></v-text-field>
-            </v-flex>
-            <v-flex xs6 class="pa-1">
-              <v-text-field
-                label="Down Paymet"
-                :value="inputs.dp"
-                @blur="recalc(i, $data)"></v-text-field>
-            </v-flex>
-          </v-layout>
-        </v-container>
-      </v-card>
+      <calc-chart @add="add" :inputSets="inputSets"/>
     </v-flex>
   </v-layout>
   <v-layout row wrap>
-    <v-flex xs4>
-      <v-btn color="success" @click="add">Add</v-btn>
+    <v-flex xs12>
+      <v-container fluid grid-list-md>
+        <v-data-iterator
+          content-tag="v-layout"
+          row
+          wrap
+          :items="inputSets"
+          :rows-per-page-items="rowsPerPageItems"
+          :pagination.sync="pagination"
+        >
+          <v-flex
+            slot="item"
+            slot-scope="props"
+            @test="console.log('swag')"
+            @calc="recalc(props.index)"
+            xs12
+            sm6
+            md4
+            lg3>
+            <inputs-item
+              :item="props.item"
+              @remove="remove(props.index)"
+              @updated="recalc(props.index, props.item)">
+            </inputs-item>
+          </v-flex>
+        </v-data-iterator>
+      </v-container>
     </v-flex>
   </v-layout>
 </v-container>
@@ -49,14 +43,19 @@
 
 <script>
 import CalcChart from '@/components/CalcChart';
+import InputsItem from '@/components/InputsItem';
 import Inputs from '../models/inputs';
 
 export default {
   name: 'calculator',
-  components: { CalcChart },
+  components: { CalcChart, InputsItem },
   data() {
     return {
       inputSets: [],
+      rowsPerPageItems: [4, 8, 12],
+      pagination: {
+        rowsPerPage: 4,
+      },
     };
   },
   mounted() {
@@ -68,8 +67,6 @@ export default {
       pmi: 0,
       main: 300,
       improv: 800,
-    // }), new Inputs({
-    //   pp: 400000,
     }), new Inputs({
       pp: 150000,
     })];
