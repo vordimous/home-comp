@@ -14,6 +14,7 @@
   "dependencies": {
     "chart.js": "^2.7.1",
     "formulajs": "^1.0.8",
+    "lodash": "^4.17.5",
     "vue": "^2.5.13",
     "vue-chartjs": "^3.1.0",
     "vue-router": "^3.0.1",

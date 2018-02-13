@@ -1,14 +1,38 @@
 <template>
-  <div class="chart">
-    <cost-chart
-      :chartData="dataCollection"
-      :options="options"
-      :height="500" />
-  </div>
+ <v-container fluid>
+    <v-layout row wrap>
+      <v-flex xs12>
+        <cost-chart
+          :chartData="dataCollection"
+          :options="options"
+          :height="500" />
+      </v-flex>
+    </v-layout>
+    <v-layout row wrap align-center>
+      <v-flex xs4>
+        <v-slider :label="`Years: ${years.toString()}`" v-model="years"></v-slider>
+      </v-flex>
+      <v-flex xs4>
+        <v-slider
+          :label="`Monthy Budget: ${monthyInc.toString()}`"
+          v-model="monthyInc"
+          max="10000"
+          step="100"></v-slider>
+      </v-flex>
+      <v-flex xs4>
+        <v-slider
+          :label="`Annual Value Icrease: ${(valIncrease * 100).toFixed(1).toString()}%`"
+          v-model="valIncrease"
+          max="0.2"
+          min="-0.2"
+          step="0.005"></v-slider>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-import { PMT, ISPMT, PPMT } from 'formulajs';
+import { ISPMT, PPMT } from 'formulajs';
 import CostChart from '@/components/CostChart';
 import DataSet from '../models/dataSet';
 
@@ -23,8 +47,9 @@ export default {
   },
   data() {
     return {
-      years: 30,
-      monthyInc: 5000,
+      years: 10,
+      monthyInc: 1000,
+      valIncrease: 0.02,
       dataCollection: null,
       options: {
         responsive: true,
@@ -57,6 +82,7 @@ export default {
               fontColor: 'white',
             },
             gridLines: {
+              display: false,
               color: 'rgba(255, 255, 255, 0.2)',
             },
           }],
@@ -81,25 +107,36 @@ export default {
   },
   watch: {
     inputSets(sets) {
-      let datasets = [];
-      sets.forEach((element, i) => {
-        datasets = datasets.concat(this.calcDataSets(element, i + 1));
+      sets.forEach((set) => {
+        if (set.monPmt > this.monthyInc) {
+          this.monthyInc = set.monPmt;
+        }
       });
-      this.dataCollection = { labels: this.labels, datasets };
+      this.updateGraph();
+    },
+    years() {
+      this.updateGraph();
+    },
+    monthyInc() {
+      this.updateGraph();
+    },
+    valIncrease() {
+      this.updateGraph();
     },
   },
   methods: {
+    updateGraph() {
+      let datasets = [];
+      this.inputSets.forEach((element, i) => {
+        datasets = datasets.concat(this.calcDataSets(element, i + 1));
+      });
+      this.dataCollection = { labels: this.labels, datasets };
+      // if (datasets.length > 0) {
+      // } else {
+      //   this.dataCollection = {};
+      // }
+    },
     calcDataSets(inputs, i) {
-      const propTax = (inputs.tax * inputs.pp) / 12;
-      const insur = ((inputs.homeIns * inputs.pp) / 12) + inputs.pmi;
-      const morgPmt = -PMT(inputs.morgRt / 12, inputs.lenMorg * 12, inputs.pp - inputs.dp);
-      const monPmt = morgPmt
-      + propTax
-      + insur
-      + (inputs.main / 12)
-      + (inputs.improv / 12);
-      const rate = inputs.morgRt / 12;
-      const periods = inputs.lenMorg * 12;
       let sellVal;
       let interest = 0;
       let principle = 0;
@@ -114,33 +151,39 @@ export default {
 
       const invSet = new DataSet({
         label: `Invested ${i}`,
+        color: this.colorLuminance(inputs.color, -0.2),
       });
       const costSet = new DataSet({
-        label: `Cost ${i}`,
+        label: `Value ${i}`,
+        color: this.colorLuminance(inputs.color, -0.4),
       });
       const leftSet = new DataSet({
         label: `Leftover ${i}`,
-        color: this.colorLuminance(inputs.color, 0.2),
       });
       const roiSet = new DataSet({
-        label: `ROI ${i}`,
-        color: this.colorLuminance(inputs.color, -0.2),
+        label: `Adjusted ${i}`,
+        color: this.colorLuminance(inputs.color, 0.2),
       });
 
       const rnd = num => Math.round(num * 100) / 100;
 
       for (let month = 0; month <= this.years * 12; month += 6) {
-        principle += PPMT(rate, month, periods, loan);
-        interest += ISPMT(rate, month, periods, loan);
-        loan += morgPmt;
-        sellVal = inputs.pp * (1.02 ** (month / 12));
+        if (loan + inputs.morgPmt > 0) {
+          principle += PPMT(inputs.rate, month, inputs.periods, loan);
+          interest += ISPMT(inputs.rate, month, inputs.periods, loan);
+          loan += inputs.morgPmt;
+        } else {
+          interest = 0;
+          loan = 0;
+        }
+        sellVal = inputs.pp * ((1 + this.valIncrease) ** (month / 12));
         upkeep = ((inputs.main + inputs.improv) / 12) * month;
         sellCost = (sellVal * 0.06) + 3500;
         sellProfit = (sellVal - sellCost) - (inputs.pp - inputs.dp) - inputs.dp;
         loss = interest + upkeep;
         gain = principle + sellProfit;
-        totalInv += monPmt;
-        totalLeft += this.monthyInc - monPmt;
+        totalInv += inputs.monPmt;
+        totalLeft += this.monthyInc - inputs.monPmt;
 
         costSet.data.push({
           x: month,
@@ -159,8 +202,7 @@ export default {
           y: (rnd(gain - loss) - rnd(totalInv)) + totalLeft,
         });
       }
-      // return [costSet, invSet, roiSet, leftSet];
-      return [roiSet, leftSet];
+      return [costSet, roiSet];
     },
     colorLuminance(h, l) {
       const lum = l || 0;
@@ -190,7 +232,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.chart {
-  /* height: 500px; */
-}
 </style>
