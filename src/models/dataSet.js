@@ -1,6 +1,11 @@
 export default class DataSet {
   constructor(fields) {
-    const color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    let color;
+    if (!fields || !fields.color) {
+      color = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    } else {
+      color = fields.color;
+    }
     // Default values defined according to iTunes API
     const defaults = {
       label: '',

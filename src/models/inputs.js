@@ -2,6 +2,7 @@ export default class Inputs {
   constructor(fields) {
     // Default values defined according to iTunes API
     const defaults = {
+      color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
       pp: 0,
       dp: 0,
       lenMorg: 30,
@@ -13,5 +14,8 @@ export default class Inputs {
       improv: 1500,
     };
     Object.assign(this, defaults, fields);
+    if (fields.dp === undefined) {
+      this.dp = 0.2 * this.pp;
+    }
   }
 }

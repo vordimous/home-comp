@@ -23,8 +23,8 @@ export default {
   },
   data() {
     return {
-      years: 20,
-      monthyInc: 1500,
+      years: 30,
+      monthyInc: 5000,
       dataCollection: null,
       options: {
         responsive: true,
@@ -120,9 +120,11 @@ export default {
       });
       const leftSet = new DataSet({
         label: `Leftover ${i}`,
+        color: this.colorLuminance(inputs.color, 0.2),
       });
       const roiSet = new DataSet({
         label: `ROI ${i}`,
+        color: this.colorLuminance(inputs.color, -0.2),
       });
 
       const rnd = num => Math.round(num * 100) / 100;
@@ -143,31 +145,44 @@ export default {
         costSet.data.push({
           x: month,
           y: rnd(gain - loss),
-          // sv: rnd(sellVal),
-          // a: '|',
-          // in: rnd(interest),
-          // up: rnd(upkeep),
-          // ls: rnd(loss),
-          // z: '|',
-          // pr: rnd(principle),
-          // sp: rnd(sellProfit),
-          // gn: rnd(gain),
         });
         invSet.data.push({
           x: month,
           y: rnd(totalInv),
         });
-        roiSet.data.push({
-          x: month,
-          y: rnd(gain - loss) - rnd(totalInv),
-        });
         leftSet.data.push({
           x: month,
           y: totalLeft,
         });
+        roiSet.data.push({
+          x: month,
+          y: (rnd(gain - loss) - rnd(totalInv)) + totalLeft,
+        });
       }
       // return [costSet, invSet, roiSet, leftSet];
       return [roiSet, leftSet];
+    },
+    colorLuminance(h, l) {
+      const lum = l || 0;
+      let hex = h || '';
+      let rgb = '#';
+      let c;
+      let i;
+
+      // validate hex string
+      hex = String(hex).replace(/[^0-9a-f]/gi, '');
+      if (hex.length < 6) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+      }
+
+      // convert to decimal and change luminosity
+      for (i = 0; i < 3; i++) {
+        c = parseInt(hex.substr(i * 2, 2), 16);
+        c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+        rgb += (`00${c}`).substr(c.length);
+      }
+
+      return rgb;
     },
   },
 };
