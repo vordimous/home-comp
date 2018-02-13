@@ -7,9 +7,10 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { PMT, ISPMT, PPMT } from 'formulajs';
 import CostChart from '@/components/CostChart';
+import DataSet from '../models/dataSet';
 
 export default {
   name: 'CalcChart',
@@ -28,18 +29,35 @@ export default {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        legend: {
+          labels: {
+            fontColor: 'white',
+          },
+        },
+        title: {
+          display: true,
+          text: 'Cost Analysis',
+          fontColor: 'white',
+        },
         animation: {
           duration: 0, // general animation time
         },
         scales: {
           yAxes: [{
             ticks: {
+              fontColor: 'white',
               callback: value => `$${value}`,
+            },
+            gridLines: {
+              color: 'rgba(255, 255, 255, 0.3)',
             },
           }],
           xAxes: [{
             ticks: {
-              callback: value => `${value} yrs`,
+              fontColor: 'white',
+            },
+            gridLines: {
+              color: 'rgba(255, 255, 255, 0.2)',
             },
           }],
         },
@@ -93,32 +111,19 @@ export default {
       let gain;
       let totalInv = 0;
       let totalLeft = 0;
-      const invSet = {
+
+      const invSet = new DataSet({
         label: `Invested ${i}`,
-        fill: false,
-        backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
-        data: [],
-      };
-      const costSet = {
+      });
+      const costSet = new DataSet({
         label: `Cost ${i}`,
-        fill: false,
-        showLine: false,
-        backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
-        data: [],
-      };
-      const leftSet = {
+      });
+      const leftSet = new DataSet({
         label: `Leftover ${i}`,
-        fill: false,
-        backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
-        data: [],
-      };
-      const roiSet = {
+      });
+      const roiSet = new DataSet({
         label: `ROI ${i}`,
-        fill: false,
-        showLine: false,
-        backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
-        data: [],
-      };
+      });
 
       const rnd = num => Math.round(num * 100) / 100;
 

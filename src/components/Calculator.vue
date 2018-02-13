@@ -3,13 +3,38 @@
   <div class="chart">
     <calc-chart :inputSets="inputSets"/>
   </div>
-  <div v-for="inputs in inputSets" :key="inputs.id" class="inputs">
-    <input v-model="inputs.pp"/>
-  </div>
+
+  <v-container
+    v-for="inputs in inputSets" :key="inputs.id"
+    fluid
+    p1
+    style="min-height: 0;"
+    grid-list-lg>
+    <v-layout row wrap>
+      <v-flex xs12>
+        <v-card tile>
+          <v-container fluid class="pb-1">
+            <v-layout row>
+              <v-flex xs6 class="pa-1">
+                <v-text-field
+                  label="Purchase Price (Value)"
+                  :value="inputs.pp"></v-text-field>
+              </v-flex>
+              <v-flex xs6 class="pa-1">
+                <v-text-field
+                  label="Down Paymet"
+                  :value="inputs.dp"></v-text-field>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </div>
 </template>
 
-<script lang="ts">
+<script>
 import CalcChart from '@/components/CalcChart';
 import Inputs from '../models/inputs';
 
@@ -39,7 +64,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
 .chart {
   /* height: 500px; */
 }
