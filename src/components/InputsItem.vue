@@ -34,7 +34,6 @@ export default {
   },
   methods: {
     checkDel() {
-      console.log('bye');
       this.$emit('remove');
     },
     recalc() {
