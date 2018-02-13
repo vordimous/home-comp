@@ -55,7 +55,7 @@
       </v-flex>
     </v-layout>
   </v-container>
-  <v-container fluid class="pb-1">
+  <v-container fluid>
     <v-layout row>
       <v-flex xs6 class="pa-1">
         <v-text-field
