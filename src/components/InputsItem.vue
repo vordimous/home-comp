@@ -5,15 +5,43 @@
   </v-card-title>
    <v-container fluid class="pb-1">
     <v-layout row>
-      <v-flex xs6 class="pa-1">
+      <v-flex xs5 class="pa-1">
         <v-text-field
           label="Monthly Payment"
           disabled
           :value="item.monPmt.toFixed(2)"
           prefix="$"
-          @blur="recalc"
+          @change="recalc"
           hide-details
           type="number"></v-text-field>
+      </v-flex>
+      <v-flex xs1 class="pa-1">
+        <v-tooltip right>
+          <v-icon color="info" slot="activator">info</v-icon>
+          <span>All expenses broken down per month:</span>
+          <v-list dense>
+            <v-list-tile>
+              <v-list-tile-content>Mortgage Payment:</v-list-tile-content>
+              <v-list-tile-content class="align-end">${{ item.morgPmt.toFixed(2) }}</v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-content>Property Tax:</v-list-tile-content>
+              <v-list-tile-content class="align-end">${{ item.propTax.toFixed(2) }}</v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-content>Homeowners Insurace:</v-list-tile-content>
+              <v-list-tile-content class="align-end">${{ item.insur.toFixed(2) }}</v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-content>PMI:</v-list-tile-content>
+              <v-list-tile-content class="align-end">${{ item.pmi.toFixed(2) }}</v-list-tile-content>
+            </v-list-tile>
+            <v-list-tile>
+              <v-list-tile-content class="pr-1">Maintenance/Improvements:</v-list-tile-content>
+              <v-list-tile-content class="align-end">${{ ((item.main + item.improv) / 12).toFixed(2) }}</v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+        </v-tooltip>
       </v-flex>
       <v-flex xs6 class="pa-1">
         <v-text-field
@@ -21,7 +49,7 @@
           disabled
           :value="item.morgPmt.toFixed(2)"
           prefix="$"
-          @blur="recalc"
+          @change="recalc"
           hide-details
           type="number"></v-text-field>
       </v-flex>
@@ -34,7 +62,7 @@
           label="Purchase Price (Value)"
           v-model="item.pp"
           prefix="$"
-          @blur="recalc"
+          @change="calcDp"
           hide-details
           type="number"></v-text-field>
       </v-flex>
@@ -43,7 +71,7 @@
           label="Down Paymet"
           v-model="item.dp"
           prefix="$"
-          @blur="recalc"
+          @change="recalc"
           hide-details
           type="number"></v-text-field>
       </v-flex>
@@ -54,7 +82,7 @@
           label="Yearly Maintenance"
           v-model="item.main"
           prefix="$"
-          @blur="recalc"
+          @change="recalc"
           hide-details
           type="number"></v-text-field>
       </v-flex>
@@ -63,7 +91,7 @@
           label="Yearly Improvements"
           v-model="item.improv"
           prefix="$"
-          @blur="recalc"
+          @change="recalc"
           hide-details
           type="number"></v-text-field>
       </v-flex>
@@ -73,8 +101,8 @@
         <v-text-field
           label="Yearly Homeowners Insurance"
           v-model="item.homeIns"
-          prefix="$"
-          @blur="recalc"
+          suffix="%"
+          @change="recalc"
           hide-details
           type="number"></v-text-field>
       </v-flex>
@@ -83,7 +111,7 @@
           label="Monthly (PMI)"
           v-model="item.pmi"
           prefix="$"
-          @blur="recalc"
+          @change="recalc"
           hide-details
           type="number"></v-text-field>
       </v-flex>
@@ -94,7 +122,7 @@
           label="Mortgage Lenth"
           v-model="item.lenMorg"
           suffix="yr(s)"
-          @blur="recalc"
+          @change="recalc"
           hide-details
           type="number"></v-text-field>
       </v-flex>
@@ -102,7 +130,8 @@
         <v-text-field
           label="Yearly Mortgage Interest Rate"
           v-model="item.morgRt"
-          @blur="recalc"
+          suffix="%"
+          @change="recalc"
           hide-details
           type="number"></v-text-field>
       </v-flex>
@@ -112,7 +141,8 @@
         <v-text-field
           label="Yearly Property Tax"
           v-model="item.tax"
-          @blur="recalc"
+          suffix="%"
+          @change="recalc"
           hide-details
           type="number"></v-text-field>
       </v-flex>
@@ -120,7 +150,8 @@
         <v-text-field
           label="Income Tax Rate"
           v-model="item.morgRt"
-          @blur="recalc"
+          suffix="%"
+          @change="recalc"
           hide-details
           type="number"></v-text-field>
       </v-flex>
@@ -140,7 +171,12 @@ export default {
       this.$emit('remove');
     },
     recalc() {
+      this.item.calcPmts();
       this.$emit('updated');
+    },
+    calcDp() {
+      this.item.dp = (0.2 * this.item.pp).toFixed(2);
+      this.recalc();
     },
   },
 };
