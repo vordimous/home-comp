@@ -6,7 +6,6 @@ export default class Inputs {
     // Default values defined according to iTunes API
     const defaults = {
       color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
-      test: 'asdf' + 213 + 'asdf',
       pp: 180000,
       dp: 0,
       lenMorg: 30,
