@@ -29,7 +29,7 @@ module.exports = {
     // allow async-await
     'generator-star-spacing': 0,
     //warn comma dangle
-    "comma-dangle": ["warn", "only-multiline"],
+    "comma-dangle": ["warn", "always-multiline"],
     "space-before-function-paren": 0,
     "prefer-template": "warn",
     // don't require .vue extension when importing

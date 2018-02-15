@@ -13,19 +13,25 @@
         <v-btn small p1 color="success" @click="$emit('add')">Add</v-btn>
       </v-flex>
       <v-flex xs3 class="pa-0">
-        <v-slider :label="`Years: ${years.toString()}`" v-model="years" max="50"></v-slider>
+        <v-slider
+          :label="`Years: ${years}`"
+          :value="years"
+          @input="updateState({ years: $event })"
+          max="50"></v-slider>
       </v-flex>
       <v-flex xs5 class="pa-0">
         <v-slider
-          :label="`Monthy Budget: ${monthyInc.toString()}`"
-          v-model="monthyInc"
+          :label="`Monthly Budget: ${monthlyInc}`"
+          :value="monthlyInc"
+          @input="test({ monthlyInc: $event })"
           max="10000"
           step="100"></v-slider>
       </v-flex>
       <v-flex xs3 class="pa-0">
         <v-slider
           :label="`Annual Value Icrease: ${(valIncrease * 100).toFixed(1).toString()}%`"
-          v-model="valIncrease"
+          :value="valIncrease"
+          @input="updateState({ valIncrease: $event })"
           max="0.2"
           min="-0.2"
           step="0.005"></v-slider>
@@ -35,6 +41,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import { ISPMT, PPMT } from 'formulajs'
 import CostChart from '@/components/CostChart'
 import DataSet from '../models/dataSet'
@@ -50,9 +57,6 @@ export default {
   },
   data() {
     return {
-      years: 10,
-      monthyInc: 1000,
-      valIncrease: 0.02,
       dataCollection: null,
       options: {
         responsive: true,
@@ -100,6 +104,11 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'years',
+      'monthlyInc',
+      'valIncrease',
+    ]),
     labels() {
       const labels = []
       for (let month = 0; month <= this.years * 12; month += 6) {
@@ -111,23 +120,27 @@ export default {
   watch: {
     inputSets(sets) {
       sets.forEach((set) => {
-        if (set.monPmt > this.monthyInc) {
-          this.monthyInc = set.monPmt
+        if (set.monPmt > this.monthlyInc) {
+          this.monthlyInc = set.monPmt
         }
       })
       this.updateGraph()
     },
-    years() {
-      this.updateGraph()
-    },
-    monthyInc() {
-      this.updateGraph()
-    },
-    valIncrease() {
-      this.updateGraph()
-    },
+    // years() {
+    //   this.updateGraph()
+    // },
+    // monthlyInc() {
+    //   this.updateGraph()
+    // },
+    // valIncrease() {
+    //   this.updateGraph()
+    // },
   },
   methods: {
+    ...mapActions(['updateState']),
+    test() {
+      console.log(arguments)
+    },
     updateGraph() {
       let datasets = []
       this.inputSets.forEach((element, i) => {
@@ -186,7 +199,7 @@ export default {
         loss = interest + upkeep
         gain = principle + sellProfit
         totalInv += inputs.monPmt
-        totalLeft += this.monthyInc - inputs.monPmt
+        totalLeft += this.monthlyInc - inputs.monPmt
 
         costSet.data.push({
           x: month,
