@@ -17,8 +17,8 @@ export default {
   data() {
     return {
       title: 'Home Price Comparison',
-    };
+    }
   },
   name: 'App',
-};
+}
 </script>

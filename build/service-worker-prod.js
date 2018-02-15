@@ -1,5 +1,5 @@
 (function() {
-  'use strict';
+  'use strict'
 
   // Check to make sure service workers are supported in the current browser,
   // and that the current page is accessed from a secure origin. Using a
@@ -11,7 +11,7 @@
       window.location.hostname.match(
         /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
       )
-    );
+    )
 
   window.addEventListener('load', function() {
       if ('serviceWorker' in navigator &&
@@ -26,7 +26,7 @@
             // i.e. whether there's an existing service worker.
             if (navigator.serviceWorker.controller) {
               // The updatefound event implies that registration.installing is set
-              var installingWorker = registration.installing;
+              var installingWorker = registration.installing
 
               installingWorker.onstatechange = function() {
                 switch (installingWorker.state) {
@@ -35,21 +35,21 @@
                     // fresh content will have been added to the cache.
                     // It's the perfect time to display a "New content is
                     // available; please refresh." message in the page's interface.
-                    break;
+                    break
 
                   case 'redundant':
                     throw new Error('The installing ' +
-                                    'service worker became redundant.');
+                                    'service worker became redundant.')
 
                   default:
                     // Ignore
                 }
-              };
+              }
             }
-          };
+          }
         }).catch(function(e) {
-          console.error('Error during service worker registration:', e);
-        });
+          console.error('Error during service worker registration:', e)
+        })
       }
-  });
-})();
+  })
+})()

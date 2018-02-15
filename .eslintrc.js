@@ -9,7 +9,7 @@ module.exports = {
   env: {
     browser: true,
   },
-  extends: 'airbnb-base',
+  extends: 'standard',
   // required to lint *.vue files
   plugins: [
     'html'
@@ -24,6 +24,14 @@ module.exports = {
   },
   // add your custom rules here
   'rules': {
+    // allow paren-less arrow functions
+    'arrow-parens': 0,
+    // allow async-await
+    'generator-star-spacing': 0,
+    //warn comma dangle
+    "comma-dangle": ["warn", "only-multiline"],
+    "space-before-function-paren": 0,
+    "prefer-template": "warn",
     // don't require .vue extension when importing
     'import/extensions': ['error', 'always', {
       'js': 'never',

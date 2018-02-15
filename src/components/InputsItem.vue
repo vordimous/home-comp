@@ -266,26 +266,26 @@ export default {
   props: ['item'],
   methods: {
     checkDel() {
-      this.$emit('remove');
+      this.$emit('remove')
     },
     recalc() {
-      this.item.calcPmts();
-      this.$emit('updated');
+      this.item.calcPmts()
+      this.$emit('updated')
     },
     calcDp() {
-      this.item.dp = (0.2 * this.item.pp).toFixed(2);
-      this.recalc();
+      this.item.dp = (0.2 * this.item.pp).toFixed(2)
+      this.recalc()
     },
   },
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .shadow {
-  text-shadow: 0 0 1px #303030;
+  text-shadow: 0 0 1px #303030
 }
 .tooltip--right i {
-  color: #9e9e9e !important;
+  color: #9e9e9e !important
 }
 </style>

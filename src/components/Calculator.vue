@@ -40,9 +40,10 @@
 </template>
 
 <script>
-import CalcChart from '@/components/CalcChart';
-import InputsItem from '@/components/InputsItem';
-import Inputs from '../models/inputs';
+import CalcChart from '@/components/CalcChart'
+
+import InputsItem from '@/components/InputsItem'
+import Inputs from '../models/inputs'
 
 export default {
   name: 'calculator',
@@ -54,7 +55,7 @@ export default {
       pagination: {
         rowsPerPage: 4,
       },
-    };
+    }
   },
   mounted() {
     this.inputSets = [new Inputs({
@@ -67,20 +68,20 @@ export default {
       improv: 800,
     }), new Inputs({
       pp: 150000,
-    })];
+    })]
   },
   methods: {
     add() {
-      this.inputSets.push(new Inputs());
+      this.inputSets.push(new Inputs())
     },
     remove(i) {
-      this.inputSets.splice(i, 1);
+      this.inputSets.splice(i, 1)
     },
     recalc() {
-      this.$refs.chart.updateGraph();
+      this.$refs.chart.updateGraph()
     },
   },
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

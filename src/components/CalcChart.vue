@@ -35,9 +35,9 @@
 </template>
 
 <script>
-import { ISPMT, PPMT } from 'formulajs';
-import CostChart from '@/components/CostChart';
-import DataSet from '../models/dataSet';
+import { ISPMT, PPMT } from 'formulajs'
+import CostChart from '@/components/CostChart'
+import DataSet from '../models/dataSet'
 
 export default {
   name: 'CalcChart',
@@ -97,140 +97,140 @@ export default {
           },
         },
       },
-    };
+    }
   },
   computed: {
     labels() {
-      const labels = [];
+      const labels = []
       for (let month = 0; month <= this.years * 12; month += 6) {
-        labels.push((month / 12).toFixed(1));
+        labels.push((month / 12).toFixed(1))
       }
-      return labels;
+      return labels
     },
   },
   watch: {
     inputSets(sets) {
       sets.forEach((set) => {
         if (set.monPmt > this.monthyInc) {
-          this.monthyInc = set.monPmt;
+          this.monthyInc = set.monPmt
         }
-      });
-      this.updateGraph();
+      })
+      this.updateGraph()
     },
     years() {
-      this.updateGraph();
+      this.updateGraph()
     },
     monthyInc() {
-      this.updateGraph();
+      this.updateGraph()
     },
     valIncrease() {
-      this.updateGraph();
+      this.updateGraph()
     },
   },
   methods: {
     updateGraph() {
-      let datasets = [];
+      let datasets = []
       this.inputSets.forEach((element, i) => {
-        datasets = datasets.concat(this.calcDataSets(element, i + 1));
-      });
-      this.dataCollection = { labels: this.labels, datasets };
+        datasets = datasets.concat(this.calcDataSets(element, i + 1))
+      })
+      this.dataCollection = { labels: this.labels, datasets }
       // if (datasets.length > 0) {
       // } else {
-      //   this.dataCollection = {};
+      //   this.dataCollection = {}
       // }
     },
     calcDataSets(inputs, i) {
-      let sellVal;
-      let interest = 0;
-      let principle = 0;
-      let loan = -(inputs.pp - inputs.dp);
-      let upkeep;
-      let sellCost;
-      let sellProfit;
-      let loss;
-      let gain;
-      let totalInv = 0;
-      let totalLeft = 0;
+      let sellVal
+      let interest = 0
+      let principle = 0
+      let loan = -(inputs.pp - inputs.dp)
+      let upkeep
+      let sellCost
+      let sellProfit
+      let loss
+      let gain
+      let totalInv = 0
+      let totalLeft = 0
 
       const invSet = new DataSet({
         label: `Invested ${i}`,
         color: this.colorLuminance(inputs.color, -0.2),
-      });
+      })
       const costSet = new DataSet({
         label: `Value ${i}`,
         color: this.colorLuminance(inputs.color, -0.4),
-      });
+      })
       const leftSet = new DataSet({
         label: `Leftover ${i}`,
-      });
+      })
       const roiSet = new DataSet({
         label: `Adjusted ${i}`,
         color: this.colorLuminance(inputs.color, 0.2),
-      });
+      })
 
-      const rnd = num => Math.round(num * 100) / 100;
+      const rnd = num => Math.round(num * 100) / 100
 
       for (let month = 0; month <= this.years * 12; month += 6) {
         if (loan + inputs.morgPmt > 0) {
-          principle += PPMT(inputs.rate, month, inputs.periods, loan);
-          interest += ISPMT(inputs.rate, month, inputs.periods, loan);
-          loan += inputs.morgPmt;
+          principle += PPMT(inputs.rate, month, inputs.periods, loan)
+          interest += ISPMT(inputs.rate, month, inputs.periods, loan)
+          loan += inputs.morgPmt
         } else {
-          interest = 0;
-          loan = 0;
+          interest = 0
+          loan = 0
         }
-        sellVal = inputs.pp * ((1 + this.valIncrease) ** (month / 12));
-        upkeep = ((inputs.main + inputs.improv) / 12) * month;
-        sellCost = (sellVal * 0.06) + 3500;
-        sellProfit = (sellVal - sellCost) - (inputs.pp - inputs.dp) - inputs.dp;
-        loss = interest + upkeep;
-        gain = principle + sellProfit;
-        totalInv += inputs.monPmt;
-        totalLeft += this.monthyInc - inputs.monPmt;
+        sellVal = inputs.pp * ((1 + this.valIncrease) ** (month / 12))
+        upkeep = ((inputs.main + inputs.improv) / 12) * month
+        sellCost = (sellVal * 0.06) + 3500
+        sellProfit = (sellVal - sellCost) - (inputs.pp - inputs.dp) - inputs.dp
+        loss = interest + upkeep
+        gain = principle + sellProfit
+        totalInv += inputs.monPmt
+        totalLeft += this.monthyInc - inputs.monPmt
 
         costSet.data.push({
           x: month,
           y: rnd(gain - loss),
-        });
+        })
         invSet.data.push({
           x: month,
           y: rnd(totalInv),
-        });
+        })
         leftSet.data.push({
           x: month,
           y: totalLeft,
-        });
+        })
         roiSet.data.push({
           x: month,
           y: (rnd(gain - loss) - rnd(totalInv)) + totalLeft,
-        });
+        })
       }
-      return [costSet, roiSet];
+      return [costSet, roiSet]
     },
     colorLuminance(h, l) {
-      const lum = l || 0;
-      let hex = h || '';
-      let rgb = '#';
-      let c;
-      let i;
+      const lum = l || 0
+      let hex = h || ''
+      let rgb = '#'
+      let c
+      let i
 
       // validate hex string
-      hex = String(hex).replace(/[^0-9a-f]/gi, '');
+      hex = String(hex).replace(/[^0-9a-f]/gi, '')
       if (hex.length < 6) {
-        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2]
       }
 
       // convert to decimal and change luminosity
       for (i = 0; i < 3; i++) {
-        c = parseInt(hex.substr(i * 2, 2), 16);
-        c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
-        rgb += (`00${c}`).substr(c.length);
+        c = parseInt(hex.substr(i * 2, 2), 16)
+        c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16)
+        rgb += (`00${c}`).substr(c.length)
       }
 
-      return rgb;
+      return rgb
     },
   },
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
