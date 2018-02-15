@@ -5,7 +5,7 @@
   grid-list-lg>
   <v-layout row wrap>
     <v-flex xs12 class="pb-0">
-      <calc-chart ref="chart" @add="add" :inputSets="inputSets"/>
+      <calc-chart/>
     </v-flex>
   </v-layout>
   <v-layout row wrap>
@@ -28,8 +28,7 @@
             lg3>
             <inputs-item
               :item="props.item"
-              @remove="remove(props.index)"
-              @updated="recalc">
+              @remove="removeInput(props.index)">
             </inputs-item>
           </v-flex>
         </v-data-iterator>
@@ -40,46 +39,33 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import CalcChart from '@/components/CalcChart'
-
 import InputsItem from '@/components/InputsItem'
-import Inputs from '../models/inputs'
 
 export default {
   name: 'calculator',
   components: { CalcChart, InputsItem },
   data() {
     return {
-      inputSets: [],
       rowsPerPageItems: [4, 8, 12],
       pagination: {
         rowsPerPage: 4,
       },
     }
   },
-  mounted() {
-    this.inputSets = [new Inputs({
-      pp: 25000,
-      dp: 0,
-      lenMorg: 15,
-      tax: 0,
-      pmi: 0,
-      main: 300,
-      improv: 800,
-    }), new Inputs({
-      pp: 150000,
-    })]
+  computed: {
+    ...mapGetters(['inputSets']),
   },
   methods: {
-    add() {
-      this.inputSets.push(new Inputs())
-    },
-    remove(i) {
-      this.inputSets.splice(i, 1)
-    },
-    recalc() {
-      this.$refs.chart.updateGraph()
-    },
+    ...mapActions([
+      'changeCriteria',
+      'removeInput',
+      'calcDataset',
+    ]),
+  },
+  mounted() {
+    this.calcDataset()
   },
 }
 </script>
