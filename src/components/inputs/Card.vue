@@ -66,7 +66,6 @@
     </v-layout>
   </v-container>
   <inputs-data :item="item"></inputs-data>
-  <v-divider></v-divider>
   <inputs-calc :item="item"></inputs-calc>
 </v-card>
 </template>

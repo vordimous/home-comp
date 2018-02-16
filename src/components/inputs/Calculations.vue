@@ -1,93 +1,42 @@
 <template>
-<v-container fluid class="pb-1">
+<v-container fluid class="pb-1 results">
   <!-- <v-layout row><pre> {{JSON.stringify(item, null, 1)}}</pre></v-layout> -->
   <v-layout row><h4>Totals after {{years}} yrs:</h4></v-layout>
   <v-layout row>
-    <v-flex xs5 class="pa-1">
-      <v-text-field
-        label="Total Intrest"
-        disabled
-        :value="item.monPmt.toFixed(2)"
-        prefix="$"
-        hide-details
-        type="number"></v-text-field>
+    <v-flex xs6 class="pa-0">
+      <v-list dense>
+        <v-list-tile>
+          <v-list-tile-content>Total Invested:</v-list-tile-content>
+          <v-list-tile-content class="align-end">${{ item.totalInv.toFixed(2) }}</v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-content>Leftover Budget:</v-list-tile-content>
+          <v-list-tile-content class="align-end">${{ item.totalLeft.toFixed(2) }}</v-list-tile-content>
+        </v-list-tile>
+      </v-list>
     </v-flex>
-    <v-flex xs1 class="pa-0">
-      <v-container text-xs-center fill-height class="pa-0">
-        <v-layout row wrap align-center class="pa-0">
-          <v-flex xs12 class="pa-0">
-            <v-tooltip right>
-              <v-icon small slot="activator">fa-info</v-icon>
-              <span>All expenses broken down per month:</span>
-            </v-tooltip>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-flex>
-    <v-flex xs5 class="pa-1">
-      <v-text-field
-        label="Total Insurance/Upkeep"
-        disabled
-        :value="item.morgPmt.toFixed(2)"
-        prefix="$"
-        hide-details
-        type="number"></v-text-field>
-    </v-flex>
-    <v-flex xs1 class="pa-0">
-      <v-container text-xs-center fill-height class="pa-0">
-        <v-layout row wrap align-center class="pa-0">
-          <v-flex xs12 class="pa-0">
-            <v-tooltip right>
-              <v-icon small slot="activator">fa-info</v-icon>
-              <span>All expenses broken down per month:</span>
-            </v-tooltip>
-          </v-flex>
-        </v-layout>
-      </v-container>
+    <v-flex xst class="pa-0">
+      <v-list dense>
+        <v-list-tile>
+          <v-list-tile-content>Sale Profit:</v-list-tile-content>
+          <v-list-tile-content class="align-end">${{ item.sellProfit.toFixed(2) }}</v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-content>Net gane:</v-list-tile-content>
+          <v-list-tile-content class="align-end">${{ net.toFixed(2) }}</v-list-tile-content>
+        </v-list-tile>
+      </v-list>
     </v-flex>
   </v-layout>
+  <v-divider></v-divider>
   <v-layout row>
-    <v-flex xs5 class="pa-1">
-      <v-text-field
-        label="Spent on income"
-        disabled
-        :value="item.monPmt.toFixed(2)"
-        prefix="$"
-        hide-details
-        type="number"></v-text-field>
-    </v-flex>
-    <v-flex xs1 class="pa-0">
-      <v-container text-xs-center fill-height class="pa-0">
-        <v-layout row wrap align-center class="pa-0">
-          <v-flex xs12 class="pa-0">
-            <v-tooltip right>
-              <v-icon small slot="activator">fa-info</v-icon>
-              <span>All expenses broken down per month:</span>
-            </v-tooltip>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-flex>
-    <v-flex xs5 class="pa-1">
-      <v-text-field
-        label="Mortgage Payment"
-        disabled
-        :value="item.morgPmt.toFixed(2)"
-        prefix="$"
-        hide-details
-        type="number"></v-text-field>
-    </v-flex>
-    <v-flex xs1 class="pa-0">
-      <v-container text-xs-center fill-height class="pa-0">
-        <v-layout row wrap align-center class="pa-0">
-          <v-flex xs12 class="pa-0">
-            <v-tooltip right>
-              <v-icon small slot="activator">fa-info</v-icon>
-              <span>All expenses broken down per month:</span>
-            </v-tooltip>
-          </v-flex>
-        </v-layout>
-      </v-container>
+    <v-flex xs12 class="pa-3">
+      <v-list dense>
+        <v-list-tile class="stuff">
+          <v-list-tile-content><h3>Money in the Bank:</h3></v-list-tile-content>
+          <v-list-tile-content class="align-end"><h3>${{ bank.toFixed(2) }}</h3></v-list-tile-content>
+        </v-list-tile>
+      </v-list>
     </v-flex>
   </v-layout>
 </v-container>
@@ -102,6 +51,18 @@ export default {
     ...mapGetters([
       'years',
     ]),
+    net() {
+      return (this.item.sellProfit - this.item.totalInv)
+    },
+    bank() {
+      return (this.net + this.item.totalLeft)
+    },
   },
 }
 </script>
+
+<style>
+.results *.list__tile {
+  padding: 0 5px !important;
+}
+</style>

@@ -124,7 +124,7 @@ export default {
         },
         tooltips: {
           callbacks: {
-            label: (item, data) => this.dataCollection.datasets[item.datasetIndex].data[item.index].dataString
+            label: (item, data) => this.dataCollection.datasets[item.datasetIndex].data[item.index].dataString,
           },
         },
       },
