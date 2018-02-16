@@ -100,7 +100,26 @@
           type="number"></v-text-field>
       </v-flex>
     </v-layout>
-    <!-- <pre> {{JSON.stringify(item, null, 1)}}</pre> -->
+    <v-layout row>
+      <v-flex xs6 class="pa-1">
+        <v-text-field
+          label="Realtor Commission"
+          v-model="item.saleComm"
+          suffix="%"
+          @change="recalc"
+          hide-details
+          type="number"></v-text-field>
+      </v-flex>
+      <v-flex xs6 class="pa-1">
+        <v-text-field
+          label="Closing Costs"
+          v-model="item.saleCost"
+          prefix="$"
+          @change="recalc"
+          hide-details
+          type="number"></v-text-field>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 

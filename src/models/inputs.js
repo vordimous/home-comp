@@ -5,6 +5,7 @@ export default class Inputs {
   constructor(fields) {
     // Default values defined according to iTunes API
     const defaults = {
+      name: '',
       color: `#${Math.floor(Math.random() * 16777215).toString(16)}`,
       pp: 180000,
       dp: 0,
@@ -15,10 +16,15 @@ export default class Inputs {
       pmi: 75,
       main: 600,
       improv: 1500,
+      saleComm: 0.06,
+      saleCost: 3500,
+      totalInv: 0,
+      totalLeft: 0,
+      sellProfit: 0,
     }
     Object.assign(this, defaults, fields)
     if (!fields || fields.dp === undefined) {
-      this.dp = (0.2 * this.pp).toFixed(2)
+      this.dp = (0.2 * this.pp).toFixed(0)
     }
     this.calcPmts()
   }
@@ -29,15 +35,16 @@ export default class Inputs {
       this.pmi = 0
     }
 
+    this.loan = (this.pp - this.dp)
     this.propTax = (this.tax * this.pp) / 12
     this.insur = ((this.homeIns * this.pp) / 12)
     this.morgPmt = -PMT(this.morgRt / 12, this.lenMorg * 12, this.pp - this.dp)
+    this.upkeep = ((this.main + this.improv) / 12)
     this.monPmt = this.morgPmt +
       this.propTax +
       this.insur +
       this.pmi +
-      (this.main / 12) +
-      (this.improv / 12)
+      this.upkeep
     this.rate = this.morgRt / 12
     this.periods = this.lenMorg * 12
   }

@@ -36,9 +36,9 @@
               :label="`Annual Value Icrease: ${valIncreasePerc}%`"
               :value="valIncrease"
               @input="changeCriteria({ valIncrease: $event })"
-              max="0.2"
-              min="-0.2"
-              step="0.005"></v-slider>
+              max="0.1"
+              min="-0.1"
+              step="0.001"></v-slider>
           </v-flex>
         </v-layout>
       </v-container>
@@ -124,8 +124,7 @@ export default {
         },
         tooltips: {
           callbacks: {
-            label: (item, data) =>
-              JSON.stringify(data.datasets[item.datasetIndex].data[item.index], null, 2),
+            label: (item, data) => this.dataCollection.datasets[item.datasetIndex].data[item.index].dataString
           },
         },
       },

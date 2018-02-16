@@ -13,6 +13,7 @@ const state = {
   minMonthlyInc: 0,
   valIncrease: 0.02,
   inputSets: [new Inputs({
+    name: 'Tiny Home',
     pp: 25000,
     dp: 0,
     lenMorg: 15,
@@ -20,8 +21,11 @@ const state = {
     pmi: 0,
     main: 300,
     improv: 800,
+    saleComm: 0.02,
+    saleCost: 1500,
   }), new Inputs({
-    pp: 150000,
+    name: 'Average Home',
+    pp: 200000,
   })],
   dataCollection: null,
 }
@@ -53,72 +57,56 @@ function colorLuminance(h, l) {
   return rgb
 }
 
-function calcDataSets(inputs, years, valIncrease, monthlyInc, i) {
-  let sellVal
-  let interest = 0
-  let principle = 0
-  let loan = -(inputs.pp - inputs.dp)
-  let upkeep
-  let sellCost
-  let sellProfit
-  let loss
-  let gain
-  let totalInv = 0
-  let totalLeft = 0
-
-  const invSet = new DataSet({
-    label: `Invested ${i}`,
-    color: colorLuminance(inputs.color, -0.2),
-  })
+function calcDataSets(inputs, state) {
   const costSet = new DataSet({
-    label: `Value ${i}`,
+    label: `Value ${inputs.name}`,
     color: colorLuminance(inputs.color, -0.4),
   })
-  const leftSet = new DataSet({
-    label: `Leftover ${i}`,
-  })
   const roiSet = new DataSet({
-    label: `Adjusted ${i}`,
+    label: `Adjusted ${inputs.name}`,
     color: colorLuminance(inputs.color, 0.2),
   })
 
   const rnd = num => Math.round(num * 100) / 100
+  const orgLoan = inputs.pp - inputs.dp
+  let loan = orgLoan
+  let totalInv = 0
+  let totalLeft = 0
+  let sellProfit = 0
 
-  for (let month = 0; month <= years * 12; month += 6) {
-    if (loan + inputs.morgPmt > 0) {
-      principle += PPMT(inputs.rate, month, inputs.periods, loan)
-      interest += ISPMT(inputs.rate, month, inputs.periods, loan)
-      loan += inputs.morgPmt
-    } else {
-      interest = 0
-      loan = 0
-    }
-    sellVal = inputs.pp * ((1 + valIncrease) ** (month / 12))
-    upkeep = ((inputs.main + inputs.improv) / 12) * month
-    sellCost = (sellVal * 0.06) + 3500
-    sellProfit = (sellVal - sellCost) - (inputs.pp - inputs.dp) - inputs.dp
-    loss = interest + upkeep
-    gain = principle + sellProfit
+  for (let month = 6; month <= state.years * 12; month += 6) {
+    const principle = -PPMT(inputs.rate, month, inputs.periods, orgLoan)
+    const interest = -ISPMT(inputs.rate, month, inputs.periods, orgLoan)
+    loan -= principle
+
+    const sellVal = inputs.pp * ((1 + state.valIncrease) ** (month / 12))
+    const sellCost = (sellVal * inputs.saleComm) + inputs.saleCost
+    sellProfit = (sellVal - sellCost) - loan - inputs.dp
+
     totalInv += inputs.monPmt
-    totalLeft += monthlyInc - inputs.monPmt
+    totalLeft += state.monthlyInc - inputs.monPmt
 
+    const dataString = JSON.stringify({
+      principle: principle.toFixed(0),
+      interest: interest.toFixed(0),
+      loan: loan.toFixed(0),
+      sellProfit: sellProfit.toFixed(0),
+      totalLeft: totalLeft.toFixed(0),
+    }, null, 2)
     costSet.data.push({
       x: month,
-      y: rnd(gain - loss),
-    })
-    invSet.data.push({
-      x: month,
-      y: rnd(totalInv),
-    })
-    leftSet.data.push({
-      x: month,
-      y: totalLeft,
+      y: rnd(sellProfit - totalInv),
+      dataString,
     })
     roiSet.data.push({
       x: month,
-      y: (rnd(gain - loss) - rnd(totalInv)) + totalLeft,
+      y: rnd(sellProfit - totalInv) + totalLeft,
+      dataString,
     })
   }
+  inputs.totalInv = totalInv
+  inputs.totalLeft = totalLeft
+  inputs.sellProfit = sellProfit
   return [costSet, roiSet]
 }
 
@@ -128,7 +116,7 @@ const getters = {
   years: state => state.years,
   yearLabels: state => {
     const labels = []
-    for (let month = 0; month <= state.years * 12; month += 6) {
+    for (let month = 6; month <= state.years * 12; month += 6) {
       labels.push((month / 12).toFixed(1))
     }
     return labels
@@ -145,7 +133,7 @@ const actions = {
     dispatch('calcDataset')
   },
   addInput({ state, commit, dispatch }) {
-    const inputSets = state.inputSets.concat(new Inputs())
+    const inputSets = state.inputSets.concat(new Inputs({ name: `Home ${state.inputSets.length + 1}` }))
     commit('changeCriteria', { inputSets })
     dispatch('calcDataset')
   },
@@ -171,13 +159,8 @@ const actions = {
     commit('changeCriteria', { minMonthlyInc, monthlyInc })
 
     // calculate dataset
-    state.inputSets.forEach((element, i) => {
-      datasets = datasets.concat(calcDataSets(
-        element,
-        state.years,
-        state.valIncrease,
-        state.monthlyInc,
-        i + 1))
+    state.inputSets.forEach(element => {
+      datasets = datasets.concat(calcDataSets(element, state))
     })
     commit('setData', { datasets, labels: getters.yearLabels })
   },

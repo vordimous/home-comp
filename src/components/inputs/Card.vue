@@ -1,8 +1,14 @@
 <template>
 <v-card class="inputs-card">
-  <v-card-title class="pa-1" primary-title v-bind:style="{'background-color': item.color}">
+  <v-card-title class="pr-3 pl-1 pt-2 pb-2" p1 primary-title v-bind:style="{'border-color': item.color}">
     <v-btn @click="checkDel" small icon class="shadow"><v-icon>delete</v-icon></v-btn>
+    <v-text-field
+      label="Name"
+      v-model="item.name"
+      @change="calcDataset"
+      hide-details></v-text-field>
   </v-card-title>
+  <v-divider></v-divider>
   <v-container fluid class="pb-1">
     <v-layout row>
       <v-flex xs5 class="pa-1">
@@ -76,6 +82,7 @@ export default {
   methods: {
     ...mapActions([
       'removeInput',
+      'calcDataset',
     ]),
     checkDel() {
       this.removeInput(this.index)
@@ -86,6 +93,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+.inputs-card .card__title {
+  border-top-width: 5px;
+  border-top-style: solid;
+}
 .inputs-card .shadow {
   text-shadow: 0 0 1px #303030
 }

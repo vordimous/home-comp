@@ -1,5 +1,6 @@
 <template>
 <v-container fluid class="pb-1">
+  <!-- <v-layout row><pre> {{JSON.stringify(item, null, 1)}}</pre></v-layout> -->
   <v-layout row><h4>Totals after {{years}} yrs:</h4></v-layout>
   <v-layout row>
     <v-flex xs5 class="pa-1">
