@@ -133,8 +133,8 @@ const getters = {
     }
     return labels
   },
-  monthlyInc: state => state.monthlyInc,
-  minMonthlyInc: state => state.minMonthlyInc,
+  monthlyInc: state => state.monthlyInc.toFixed(2),
+  minMonthlyInc: state => state.minMonthlyInc.toFixed(2),
   valIncrease: state => state.valIncrease,
   valIncreasePerc: state => toPercent(state.valIncrease),
 }
@@ -162,11 +162,11 @@ const actions = {
     // set income max
     state.inputSets.forEach((set) => {
       if (set.monPmt > minMonthlyInc) {
-        minMonthlyInc = set.monPmt.toFixed(2)
+        minMonthlyInc = set.monPmt
       }
     })
     if (minMonthlyInc > monthlyInc) {
-      monthlyInc = minMonthlyInc
+      monthlyInc = parseFloat(minMonthlyInc)
     }
     commit('changeCriteria', { minMonthlyInc, monthlyInc })
 

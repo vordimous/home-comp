@@ -24,12 +24,12 @@
           </v-flex>
           <v-flex xs5 class="pa-0">
             <v-slider
-              :label="`Monthly Budget: ${monthlyInc}`"
+              :label="`Monthly Budget: $${monthlyInc}`"
               :value="monthlyInc"
               @input="changeCriteria({ monthlyInc: $event })"
               :min="minMonthlyInc"
-              max="10000"
-              step="100"></v-slider>
+              max="5000"
+              step="50"></v-slider>
           </v-flex>
           <v-flex xs3 class="pa-0">
             <v-slider
@@ -61,10 +61,10 @@
             sm6
             md4
             lg3>
-            <inputs-item
+            <inputs-card
               :item="props.item"
-              @remove="removeInput(props.index)">
-            </inputs-item>
+              :index="props.index">
+            </inputs-card>
           </v-flex>
         </v-data-iterator>
       </v-container>
@@ -76,11 +76,10 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import CostChart from '@/components/CostChart'
-import InputsItem from '@/components/InputsItem'
+import InputsCard from '@/components/inputs/Card'
 
 export default {
-  name: 'calculator',
-  components: { CostChart, InputsItem },
+  components: { CostChart, InputsCard },
   data() {
     return {
       rowsPerPageItems: [4, 8, 12],
