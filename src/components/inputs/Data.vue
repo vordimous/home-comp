@@ -44,9 +44,8 @@
       <v-flex xs6 class="pa-1">
         <v-text-field
           label="Yearly Homeowners Insurance"
-          v-model="item.homeIns"
+          v-model="homeIns"
           suffix="%"
-          @change="recalc"
           hide-details
           type="number"></v-text-field>
       </v-flex>
@@ -73,9 +72,8 @@
       <v-flex xs6 class="pa-1">
         <v-text-field
           label="Yearly Mortgage Interest Rate"
-          v-model="item.morgRt"
+          v-model="morgRt"
           suffix="%"
-          @change="recalc"
           hide-details
           type="number"></v-text-field>
       </v-flex>
@@ -84,13 +82,12 @@
       <v-flex xs6 class="pa-1">
         <v-text-field
           label="Yearly Property Tax"
-          v-model="item.tax"
+          v-model="tax"
           suffix="%"
-          @change="recalc"
           hide-details
           type="number"></v-text-field>
       </v-flex>
-      <v-flex xs6 class="pa-1">
+      <!-- <v-flex xs6 class="pa-1">
         <v-text-field
           label="Income Tax Rate"
           v-model="item.morgRt"
@@ -98,15 +95,14 @@
           @change="recalc"
           hide-details
           type="number"></v-text-field>
-      </v-flex>
+      </v-flex> -->
     </v-layout>
     <v-layout row>
       <v-flex xs6 class="pa-1">
         <v-text-field
           label="Realtor Commission"
-          v-model="item.saleComm"
+          v-model="saleComm"
           suffix="%"
-          @change="recalc"
           hide-details
           type="number"></v-text-field>
       </v-flex>
@@ -126,8 +122,48 @@
 <script>
 import { mapActions } from 'vuex'
 
+const rnd = num => Math.round(num * 1000) / 1000
+
 export default {
   props: ['item'],
+  computed: {
+    morgRt: {
+      get() {
+        return this.item.morgRt * 100
+      },
+      set(value) {
+        this.item.morgRt = value / 100
+        this.recalc()
+      },
+    },
+    tax: {
+      get() {
+        return this.item.tax * 100
+      },
+      set(value) {
+        this.item.tax = rnd(value / 100)
+        this.recalc()
+      },
+    },
+    homeIns: {
+      get() {
+        return this.item.homeIns * 100
+      },
+      set(value) {
+        this.item.homeIns = value / 100
+        this.recalc()
+      },
+    },
+    saleComm: {
+      get() {
+        return this.item.saleComm * 100
+      },
+      set(value) {
+        this.item.saleComm = value / 100
+        this.recalc()
+      },
+    },
+  },
   methods: {
     ...mapActions([
       'calcDataset',
