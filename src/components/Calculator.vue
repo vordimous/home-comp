@@ -12,17 +12,17 @@
           </v-flex>
         </v-layout>
         <v-layout row wrap align-center>
-          <v-flex xs1 class="pa-0">
+          <v-flex xs4 sm2 md1 class="pa-0">
             <v-btn small p1 color="success" @click="addInput">Add</v-btn>
           </v-flex>
-          <v-flex xs3 class="pa-0">
+          <v-flex xs8 sm10 md3 class="pa-0">
             <v-slider
               :label="`Years: ${years}`"
               :value="years"
               @input="changeCriteria({ years: $event })"
               max="50"></v-slider>
           </v-flex>
-          <v-flex xs5 class="pa-0">
+          <v-flex xs12 sm6 md5 class="pa-0">
             <v-slider
               :label="`Monthly Budget: $${monthlyInc}`"
               :value="monthlyInc"
@@ -31,7 +31,7 @@
               max="5000"
               step="50"></v-slider>
           </v-flex>
-          <v-flex xs3 class="pa-0">
+          <v-flex xs12 sm6 md3 class="pa-0">
             <v-slider
               :label="`Annual Value Icrease: ${valIncreasePerc}%`"
               :value="valIncrease"
