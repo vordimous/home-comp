@@ -8,7 +8,11 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Calc',
+      redirect: '/home',
+    },
+    {
+      path: '/home',
+      name: 'Home',
       component: Calculator,
     },
   ],
