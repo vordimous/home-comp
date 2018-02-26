@@ -16,6 +16,7 @@
     "formulajs": "^1.0.8",
     "lodash": "^4.17.5",
     "vue": "^2.5.13",
+    "vue-analytics": "^5.9.0",
     "vue-chartjs": "^3.2.1",
     "vue-router": "^3.0.1",
     "vuetify": "^1.0.1",
