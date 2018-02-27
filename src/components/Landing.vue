@@ -25,7 +25,7 @@
           <h2 class="headline">Make more informed decisions</h2>
           <span class="subheading">
             Companies are here to help but ultimately are here to make a profit.
-            Doing reasearch only gets so far, sometimes you just want to crunch the numbers.
+            Doing reasearch only gets you so far, sometimes you just need to crunch the numbers.
           </span>
         </div>
       </v-flex>
