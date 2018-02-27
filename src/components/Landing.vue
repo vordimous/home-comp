@@ -6,11 +6,10 @@
         column
         align-center
         justify-center
-        class="white--text"
-      >
+        class="white--text">
         <img src="static/img/assets/logo.png" alt="Real Cost Calculators" height="200">
         <h1 class="white--text mb-2 display-1 text-xs-center">Real Cost Calculators</h1>
-        <div class="subheading mb-3 text-xs-center">Find your Reality</div>
+        <div class="subheading mb-3 text-xs-center">Get all of the Facts</div>
       </v-layout>
     </v-parallax>
   </section>
@@ -20,13 +19,13 @@
       column
       wrap
       class="my-5"
-      align-center
-    >
+      align-center>
       <v-flex xs12 sm4 class="my-3">
         <div class="text-xs-center">
-          <h2 class="headline">The best way to start developing</h2>
+          <h2 class="headline">Make more informed decisions</h2>
           <span class="subheading">
-            Cras facilisis mi vitae nunc
+            Companies are here to help but ultimately are here to make a profit.
+            Doing reasearch only gets so far, sometimes you just want to crunch the numbers.
           </span>
         </div>
       </v-flex>
@@ -36,7 +35,7 @@
             <v-flex xs12 md6>
               <v-card class="elevation-0 transparent">
                 <v-card-text class="text-xs-center">
-                  <v-btn fab large color="orange darken-3">
+                  <v-btn fab large color="orange darken-3" to="/home">
                     <v-icon x-large>fas fa-home</v-icon>
                   </v-btn>
                 </v-card-text>
@@ -44,16 +43,16 @@
                   <div class="headline">Home Cost Comparison</div>
                 </v-card-title>
                 <v-card-text>
-                  Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
-                  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                  Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti.
+                  Everyone from realtor to banker wants you to spend as much as possible on a house because
+                  they make percetage profits. This tool will let you compare what kind of return you will get
+                  on your total amount invested. Money not invested is money in the Bank!
                 </v-card-text>
               </v-card>
             </v-flex>
             <v-flex xs12 md6>
               <v-card class="elevation-0 transparent">
                 <v-card-text class="text-xs-center">
-                  <v-btn fab large color="orange darken-3">
+                  <v-btn fab large color="orange darken-3" to="/discuss">
                     <v-icon x-large>fas fa-lightbulb</v-icon>
                   </v-btn>
                 </v-card-text>
@@ -61,9 +60,8 @@
                   <div class="headline text-xs-center">More comng soon...</div>
                 </v-card-title>
                 <v-card-text>
-                  Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
-                  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                  Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti.
+                  Any way to help people make better decisions is worth invesigating. If you have any suggestions
+                  join the disscussion and help us grow.
                 </v-card-text>
               </v-card>
             </v-flex>
@@ -73,7 +71,7 @@
     </v-layout>
   </section>
 
-  <section>
+  <!-- <section>
     <v-parallax src="static/img/assets/section.jpg" height="380">
       <v-layout column align-center justify-center>
         <div class="headline white--text mb-3 text-xs-center">Web development has never been easier</div>
@@ -143,7 +141,7 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </section>
+  </section> -->
 </v-content>
 </template>
 
