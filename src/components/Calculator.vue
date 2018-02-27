@@ -1,76 +1,78 @@
 <template>
-<v-container fluid p1 grid-list-lg>
-  <v-layout row wrap>
-    <v-flex xs12 class="pb-0">
-      <v-container fluid class="pa-0">
-        <v-layout row wrap>
-          <v-flex xs12 class="pa-0">
-            <cost-chart
-              :chartData="dataCollection"
-              :options="chartOptions"
-              :height="500" />
-          </v-flex>
-        </v-layout>
-        <v-layout row wrap align-center>
-          <v-flex xs4 sm2 md1 class="pa-0">
-            <v-btn small p1 color="success" @click="addInput">Add</v-btn>
-          </v-flex>
-          <v-flex xs8 sm10 md3 class="pa-0">
-            <v-slider
-              :label="`Years: ${years}`"
-              :value="years"
-              @input="changeCriteria({ years: $event })"
-              max="50"></v-slider>
-          </v-flex>
-          <v-flex xs12 sm6 md5 class="pa-0">
-            <v-slider
-              :label="`Monthly Budget: $${monthlyInc}`"
-              :value="monthlyInc"
-              @input="changeCriteria({ monthlyInc: $event })"
-              :min="minMonthlyInc"
-              max="5000"
-              step="50"></v-slider>
-          </v-flex>
-          <v-flex xs12 sm6 md3 class="pa-0">
-            <v-slider
-              :label="`Annual Value Icrease: ${valIncreasePerc}%`"
-              :value="valIncrease"
-              @input="changeCriteria({ valIncrease: $event })"
-              max="0.1"
-              min="-0.1"
-              step="0.001"></v-slider>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-flex>
-  </v-layout>
-  <v-layout row wrap>
-    <v-flex xs12 class="pa-0">
-      <v-container fluid grid-list-md>
-        <v-data-iterator
-          content-tag="v-layout"
-          row
-          wrap
-          :items="inputSets"
-          :rows-per-page-items="rowsPerPageItems"
-          :pagination.sync="pagination">
-          <v-flex
-            slot="item"
-            slot-scope="props"
-            xs12
-            sm6
-            md4
-            lg3>
-            <inputs-card
-              :item="props.item"
-              :index="props.index">
-            </inputs-card>
-          </v-flex>
-        </v-data-iterator>
-      </v-container>
-    </v-flex>
-  </v-layout>
-</v-container>
+<v-content>
+  <v-container fluid p1 grid-list-lg>
+    <v-layout row wrap>
+      <v-flex xs12 class="pb-0">
+        <v-container fluid class="pa-0">
+          <v-layout row wrap>
+            <v-flex xs12 class="pa-0">
+              <cost-chart
+                :chartData="dataCollection"
+                :options="chartOptions"
+                :height="500" />
+            </v-flex>
+          </v-layout>
+          <v-layout row wrap align-center>
+            <v-flex xs4 sm2 md1 class="pa-0">
+              <v-btn small p1 color="success" @click="addInput">Add</v-btn>
+            </v-flex>
+            <v-flex xs8 sm10 md3 class="pa-0">
+              <v-slider
+                :label="`Years: ${years}`"
+                :value="years"
+                @input="changeCriteria({ years: $event })"
+                max="50"></v-slider>
+            </v-flex>
+            <v-flex xs12 sm6 md5 class="pa-0">
+              <v-slider
+                :label="`Monthly Budget: $${monthlyInc}`"
+                :value="monthlyInc"
+                @input="changeCriteria({ monthlyInc: $event })"
+                :min="minMonthlyInc"
+                max="5000"
+                step="50"></v-slider>
+            </v-flex>
+            <v-flex xs12 sm6 md3 class="pa-0">
+              <v-slider
+                :label="`Annual Value Icrease: ${valIncreasePerc}%`"
+                :value="valIncrease"
+                @input="changeCriteria({ valIncrease: $event })"
+                max="0.1"
+                min="-0.1"
+                step="0.001"></v-slider>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-flex>
+    </v-layout>
+    <v-layout row wrap>
+      <v-flex xs12 class="pa-0">
+        <v-container fluid grid-list-md>
+          <v-data-iterator
+            content-tag="v-layout"
+            row
+            wrap
+            :items="inputSets"
+            :rows-per-page-items="rowsPerPageItems"
+            :pagination.sync="pagination">
+            <v-flex
+              slot="item"
+              slot-scope="props"
+              xs12
+              sm6
+              md4
+              lg3>
+              <inputs-card
+                :item="props.item"
+                :index="props.index">
+              </inputs-card>
+            </v-flex>
+          </v-data-iterator>
+        </v-container>
+      </v-flex>
+    </v-layout>
+  </v-container>
+</v-content>
 </template>
 
 <script>
