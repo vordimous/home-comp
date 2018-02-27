@@ -33,15 +33,15 @@
       <v-flex xs12>
         <v-container grid-list-xl>
           <v-layout row wrap align-center>
-            <v-flex xs12 md4>
+            <v-flex xs12 md6>
               <v-card class="elevation-0 transparent">
                 <v-card-text class="text-xs-center">
                   <v-btn fab large color="orange darken-3">
-                    <v-icon x-large>flash_on</v-icon>
+                    <v-icon x-large>fas fa-home</v-icon>
                   </v-btn>
                 </v-card-text>
                 <v-card-title primary-title class="layout justify-center">
-                  <div class="headline">Fast development</div>
+                  <div class="headline">Home Cost Comparison</div>
                 </v-card-title>
                 <v-card-text>
                   Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
@@ -50,15 +50,15 @@
                 </v-card-text>
               </v-card>
             </v-flex>
-            <v-flex xs12 md4>
+            <v-flex xs12 md6>
               <v-card class="elevation-0 transparent">
                 <v-card-text class="text-xs-center">
                   <v-btn fab large color="orange darken-3">
-                    <v-icon x-large>flash_on</v-icon>
+                    <v-icon x-large>fas fa-lightbulb</v-icon>
                   </v-btn>
                 </v-card-text>
                 <v-card-title primary-title class="layout justify-center">
-                  <div class="headline text-xs-center">Completely Open Sourced</div>
+                  <div class="headline text-xs-center">More comng soon...</div>
                 </v-card-title>
                 <v-card-text>
                   Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
@@ -152,3 +152,6 @@ export default {
   name: 'Landing',
 }
 </script>
+
+<style scoped>
+</style>
