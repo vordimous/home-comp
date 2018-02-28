@@ -21,19 +21,10 @@
       </v-flex>
     </v-layout>
     <v-layout row>
-      <v-flex xs6 class="pa-1">
+      <v-flex xs6 class="pa-1" v-for="exp in item.yearlyExp" :key="exp.label">
         <v-text-field
-          label="Yearly Maintenance"
-          v-model="item.main"
-          prefix="$"
-          @change="recalc"
-          hide-details
-          type="number"></v-text-field>
-      </v-flex>
-      <v-flex xs6 class="pa-1">
-        <v-text-field
-          label="Yearly Improvements"
-          v-model="item.improv"
+          :label="`Yearly ${exp.label}`"
+          v-model="exp.value"
           prefix="$"
           @change="recalc"
           hide-details

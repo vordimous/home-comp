@@ -14,8 +14,10 @@ export default class Inputs {
       tax: 0.008,
       homeIns: 0.004,
       pmi: 75,
-      main: 600,
-      improv: 1500,
+      yearlyExp: [
+        { label: 'Maintenance', value: 600 },
+        { label: 'Improvements', value: 1500 },
+      ],
       saleComm: 0.06,
       saleCost: 3500,
       totalInv: 0,
@@ -39,7 +41,10 @@ export default class Inputs {
     this.propTax = (this.tax * this.pp) / 12
     this.insur = ((this.homeIns * this.pp) / 12)
     this.morgPmt = -PMT(this.morgRt / 12, this.lenMorg * 12, this.pp - this.dp)
-    this.upkeep = ((this.main + this.improv) / 12)
+    this.upkeep = 0
+    for (let exp of this.yearlyExp) {
+      this.upkeep += (exp.value / 12)
+    }
     this.monPmt = this.morgPmt +
       this.propTax +
       this.insur +

@@ -44,9 +44,9 @@
                     <v-list-tile-content>PMI:</v-list-tile-content>
                     <v-list-tile-content class="align-end">${{ item.pmi.toFixed(2) }}</v-list-tile-content>
                   </v-list-tile>
-                  <v-list-tile>
-                    <v-list-tile-content class="pr-1">Maintenance/Improvements:</v-list-tile-content>
-                    <v-list-tile-content class="align-end">${{ ((item.main + item.improv) / 12).toFixed(2) }}</v-list-tile-content>
+                  <v-list-tile v-for="exp in item.yearlyExp" :key="exp.label">
+                    <v-list-tile-content class="pr-1">{{ exp.label }}</v-list-tile-content>
+                    <v-list-tile-content class="align-end">${{ ((exp.value) / 12).toFixed(2) }}</v-list-tile-content>
                   </v-list-tile>
                 </v-list>
               </v-tooltip>

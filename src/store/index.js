@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { ISPMT, PPMT } from 'formulajs'
 
-import Inputs from '../models/inputs'
+import Inputs from '../models/homeCost/inputs'
 import DataSet from '../models/dataSet'
 
 Vue.use(Vuex)
@@ -15,12 +15,15 @@ const state = {
   inputSets: [new Inputs({
     name: 'Tiny',
     pp: 25000,
-    dp: 0,
+    dp: 15000,
     lenMorg: 15,
     tax: 0,
     pmi: 0,
-    main: 300,
-    improv: 800,
+    yearlyExp: [
+      { label: 'Maintenance', value: 300 },
+      { label: 'Improvements', value: 800 },
+      { label: 'Land', value: 3600 },
+    ],
     saleComm: 0.02,
     saleCost: 1500,
   }), new Inputs({
