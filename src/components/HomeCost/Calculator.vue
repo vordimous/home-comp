@@ -6,7 +6,7 @@
         <v-container fluid class="pa-0">
           <v-layout row wrap>
             <v-flex xs12 class="pa-0">
-              <cost-chart
+              <chart
                 :chartData="dataCollection"
                 :options="chartOptions"
                 :height="500" />
@@ -77,14 +77,14 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import CostChart from '@/components/CostChart'
-import InputsCard from '@/components/inputs/Card'
+import Chart from '@/components/HomeCost/Chart'
+import InputsCard from '@/components/HomeCost/Card'
 
 export default {
-  components: { CostChart, InputsCard },
+  components: { Chart, InputsCard },
   data() {
     return {
-      rowsPerPageItems: [4, 8, 12],
+      rowsPerPageItems: [4, 8, 16],
       pagination: {
         rowsPerPage: 4,
       },
@@ -102,7 +102,7 @@ export default {
           fontColor: 'white',
         },
         animation: {
-          duration: 0, // general animation time
+          duration: 0,
         },
         scales: {
           yAxes: [{

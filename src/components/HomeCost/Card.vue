@@ -65,18 +65,18 @@
       </v-flex>
     </v-layout>
   </v-container>
-  <inputs-data :item="item"></inputs-data>
-  <inputs-calc :item="item"></inputs-calc>
+  <input-data :item="item"/>
+  <results :item="item"/>
 </v-card>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-import InputsData from '@/components/inputs/Data'
-import InputsCalc from '@/components/inputs/Calculations'
+import InputData from '@/components/HomeCost/InputData'
+import Results from '@/components/HomeCost/Results'
 
 export default {
-  components: { InputsData, InputsCalc },
+  components: { InputData, Results },
   props: ['item', 'index'],
   methods: {
     ...mapActions([
