@@ -1,17 +1,6 @@
 <template>
 <v-content>
-  <v-container fluid p1 grid-list-lg>
-    <v-layout row wrap>
-      <v-flex xs12 class="pb-0">
         <v-container fluid class="pa-0">
-          <v-layout row wrap>
-            <v-flex xs12 class="pa-0">
-              <chart
-                :chartData="dataCollection"
-                :options="chartOptions"
-                :height="500" />
-            </v-flex>
-          </v-layout>
           <v-layout row wrap align-center>
             <v-flex xs4 sm2 md1 class="pa-0">
               <v-btn small p1 color="success" @click="addInput">Add</v-btn>
@@ -42,26 +31,28 @@
                 step="0.001"></v-slider>
             </v-flex>
           </v-layout>
-        </v-container>
-      </v-flex>
-    </v-layout>
     <v-layout row wrap>
-      <v-flex xs12 class="pa-0">
+      <v-flex md6 xs12 class="pa-0">
+        <chart
+          :chartData="dataCollection"
+          :options="chartOptions"
+          :height="700" />
+      </v-flex>
+      <v-flex md6 xs12 class="pa-0">
         <v-container fluid grid-list-md>
           <v-data-iterator
             content-tag="v-layout"
             row
             wrap
             :items="inputSets"
-            :rows-per-page-items="rowsPerPageItems"
             :pagination.sync="pagination">
             <v-flex
               slot="item"
               slot-scope="props"
               xs12
               sm6
-              md4
-              lg3>
+              md6
+              lg6>
               <inputs-card
                 :item="props.item"
                 :index="props.index">
@@ -84,9 +75,8 @@ export default {
   components: { Chart, InputsCard },
   data() {
     return {
-      rowsPerPageItems: [4, 8, 16],
       pagination: {
-        rowsPerPage: 4,
+        rowsPerPage: 2,
       },
       chartOptions: {
         responsive: true,
