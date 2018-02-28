@@ -9,11 +9,11 @@ Vue.use(Vuex)
 
 const state = {
   years: 10,
-  monthlyInc: 1000,
+  monthlyInc: 1800,
   minMonthlyInc: 0,
   valIncrease: 0.02,
   inputSets: [new Inputs({
-    name: 'Tiny Home',
+    name: 'Tiny',
     pp: 25000,
     dp: 0,
     lenMorg: 15,
@@ -24,7 +24,7 @@ const state = {
     saleComm: 0.02,
     saleCost: 1500,
   }), new Inputs({
-    name: 'Average Home',
+    name: 'Traditional',
     pp: 200000,
   })],
   dataCollection: null,
@@ -63,7 +63,7 @@ function calcDataSets(inputs, state) {
     color: colorLuminance(inputs.color, -0.4),
   })
   const roiSet = new DataSet({
-    label: `Adjusted ${inputs.name}`,
+    label: `In the Bank ${inputs.name}`,
     color: colorLuminance(inputs.color, 0.2),
   })
 

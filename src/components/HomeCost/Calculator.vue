@@ -2,22 +2,13 @@
 <v-content>
         <v-container fluid class="pa-0">
           <v-layout row wrap align-center>
-            <v-flex xs4 sm2 md1 class="pa-0">
-              <v-btn small p1 color="success" @click="addInput">Add</v-btn>
-            </v-flex>
-            <v-flex xs8 sm10 md3 class="pa-0">
-              <v-slider
-                :label="`Years: ${years}`"
-                :value="years"
-                @input="changeCriteria({ years: $event })"
-                max="50"></v-slider>
-            </v-flex>
             <v-flex xs12 sm6 md5 class="pa-0">
               <v-slider
                 :label="`Monthly Budget: $${monthlyInc}`"
                 :value="monthlyInc"
                 @input="changeCriteria({ monthlyInc: $event })"
                 :min="minMonthlyInc"
+                class="pr-1 pl-1"
                 max="5000"
                 step="50"></v-slider>
             </v-flex>
@@ -26,9 +17,21 @@
                 :label="`Annual Value Icrease: ${valIncreasePerc}%`"
                 :value="valIncrease"
                 @input="changeCriteria({ valIncrease: $event })"
+                class="pr-1 pl-1"
                 max="0.1"
                 min="-0.1"
                 step="0.001"></v-slider>
+            </v-flex>
+            <v-flex xs8 sm10 md3 class="pa-0">
+              <v-slider
+                :label="`Years: ${years}`"
+                :value="years"
+                @input="changeCriteria({ years: $event })"
+                class="pr-1 pl-1"
+                max="50"></v-slider>
+            </v-flex>
+            <v-flex xs4 sm2 md1 class="ma-0 pa-0">
+              <v-btn small color="success" @click="addInput">Add</v-btn>
             </v-flex>
           </v-layout>
     <v-layout row wrap>
