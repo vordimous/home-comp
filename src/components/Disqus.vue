@@ -3,7 +3,8 @@
   <v-container fluid fill-height>
     <v-layout row wrap>
       <v-flex xs12 class="pa-0">
-        <disqus shortname="vordimous"></disqus>
+        <disqus shortname="realcostcalc"
+          url="https://www.realcosctcalc.com/#/discuss"></disqus>
       </v-flex>
     </v-layout>
   </v-container>
