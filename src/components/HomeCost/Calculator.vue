@@ -1,39 +1,51 @@
 <template>
 <v-content>
-        <v-container fluid class="pa-0">
-          <v-layout row wrap align-center>
-            <v-flex xs12 sm6 md5 class="pa-0">
-              <v-slider
-                :label="`Monthly Budget: $${monthlyInc}`"
-                :value="monthlyInc"
-                @input="changeCriteria({ monthlyInc: $event })"
-                :min="minMonthlyInc"
-                class="pr-1 pl-1"
-                max="5000"
-                step="50"></v-slider>
-            </v-flex>
-            <v-flex xs12 sm6 md3 class="pa-0">
-              <v-slider
-                :label="`Annual Value Icrease: ${valIncreasePerc}%`"
-                :value="valIncrease"
-                @input="changeCriteria({ valIncrease: $event })"
-                class="pr-1 pl-1"
-                max="0.1"
-                min="-0.1"
-                step="0.001"></v-slider>
-            </v-flex>
-            <v-flex xs8 sm10 md3 class="pa-0">
-              <v-slider
-                :label="`Years: ${years}`"
-                :value="years"
-                @input="changeCriteria({ years: $event })"
-                class="pr-1 pl-1"
-                max="50"></v-slider>
-            </v-flex>
-            <v-flex xs4 sm2 md1 class="ma-0 pa-0">
-              <v-btn small color="success" @click="addInput">Add</v-btn>
-            </v-flex>
-          </v-layout>
+  <v-container fluid class="pa-0">
+    <v-card color="blue-grey darken-4" class="white--text">
+      <v-card-title primary-title class="pb-0">
+        <div class="headline">Real Home Cost and Comparison</div>
+        <span class="grey--text pl-3 pt-1">Finding out what actually goes into owning a home is a hard number to come up with. So many factors cause large changes in if or when property will pay off. This tool helps you take a budgeted amount of money and shows you how far that investment gets you. Most importantly it shows you what happens to the money you don't invest and keep in the bank. That is money that can be used in any way you can imagine. </span>
+      </v-card-title>
+      <v-card-actions>
+        <v-layout row wrap align-center>
+          <v-flex xs12 sm6 md5 class="pa-0">
+            <v-slider
+              :label="`Monthly Budget: $${monthlyInc}`"
+              :value="monthlyInc"
+              @input="changeCriteria({ monthlyInc: $event })"
+              :min="minMonthlyInc"
+              hide-details
+              class="pt-1 pl-1 pr-1"
+              max="5000"
+              step="50"></v-slider>
+          </v-flex>
+          <v-flex xs12 sm6 md3 class="pa-0">
+            <v-slider
+              :label="`Annual Value Icrease: ${valIncreasePerc}%`"
+              :value="valIncrease"
+              @input="changeCriteria({ valIncrease: $event })"
+              hide-details
+              class="pt-1 pl-1 pr-1"
+              max="0.1"
+              min="-0.1"
+              step="0.001"></v-slider>
+          </v-flex>
+          <v-flex xs8 sm10 md3 class="pa-0">
+            <v-slider
+              :label="`Years: ${years}`"
+              :value="years"
+              @input="changeCriteria({ years: $event })"
+              hide-details
+              class="pt-1 pl-1 pr-1"
+              max="50"></v-slider>
+          </v-flex>
+          <v-flex xs4 sm2 md1 class="ma-0 pa-0">
+            <v-btn small color="success" @click="addInput">Add</v-btn>
+          </v-flex>
+        </v-layout>
+      </v-card-actions>
+    </v-card>
+
     <v-layout row wrap>
       <v-flex md6 xs12 class="pa-0">
         <chart
