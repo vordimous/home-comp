@@ -15,7 +15,7 @@
         <v-list dense>
           <v-list-tile>
             <v-list-tile-content><h3>Monthly Payment:</h3></v-list-tile-content>
-            <v-list-tile-content class="align-end"><h3>${{ item.monPmt.toFixed(2) }}</h3></v-list-tile-content>
+            <v-list-tile-content class="align-end"><h3>{{ item.monPmt | currency }}</h3></v-list-tile-content>
           </v-list-tile>
         </v-list>
       </v-flex>
@@ -29,23 +29,23 @@
                 <v-list dense>
                   <v-list-tile>
                     <v-list-tile-content>Mortgage Payment:</v-list-tile-content>
-                    <v-list-tile-content class="align-end">${{ item.morgPmt.toFixed(2) }}</v-list-tile-content>
+                    <v-list-tile-content class="align-end">{{ item.morgPmt | currency }}</v-list-tile-content>
                   </v-list-tile>
                   <v-list-tile>
                     <v-list-tile-content>Property Tax:</v-list-tile-content>
-                    <v-list-tile-content class="align-end">${{ item.propTax.toFixed(2) }}</v-list-tile-content>
+                    <v-list-tile-content class="align-end">{{ item.propTax | currency }}</v-list-tile-content>
                   </v-list-tile>
                   <v-list-tile>
                     <v-list-tile-content class="pr-1">Homeowners Insurace:</v-list-tile-content>
-                    <v-list-tile-content class="align-end">${{ item.insur.toFixed(2) }}</v-list-tile-content>
+                    <v-list-tile-content class="align-end">{{ item.insur | currency }}</v-list-tile-content>
                   </v-list-tile>
                   <v-list-tile>
                     <v-list-tile-content>PMI:</v-list-tile-content>
-                    <v-list-tile-content class="align-end">${{ item.pmi.toFixed(2) }}</v-list-tile-content>
+                    <v-list-tile-content class="align-end">{{ item.pmi | currency }}</v-list-tile-content>
                   </v-list-tile>
                   <v-list-tile v-for="exp in item.yearlyExp" :key="exp.label">
                     <v-list-tile-content class="pr-1">{{ exp.label }}</v-list-tile-content>
-                    <v-list-tile-content class="align-end">${{ ((exp.value) / 12).toFixed(2) }}</v-list-tile-content>
+                    <v-list-tile-content class="align-end">{{ ((exp.value) / 12) | currency }}</v-list-tile-content>
                   </v-list-tile>
                 </v-list>
               </v-tooltip>

@@ -6,7 +6,7 @@
       <v-list dense>
         <v-list-tile>
           <v-list-tile-content><h3>Money in the Bank:</h3></v-list-tile-content>
-          <v-list-tile-content class="align-end"><h3>${{ bank.toFixed(2) }}</h3></v-list-tile-content>
+          <v-list-tile-content class="align-end"><h3>{{ bank | currency }}</h3></v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-flex>
@@ -20,19 +20,19 @@
                <v-list dense>
                 <v-list-tile>
                   <v-list-tile-content>Total Invested:</v-list-tile-content>
-                  <v-list-tile-content class="align-end">${{ item.totalInv.toFixed(2) }}</v-list-tile-content>
+                  <v-list-tile-content class="align-end">{{ item.totalInv | currency }}</v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile>
                   <v-list-tile-content class="pr-1">Leftover Budget:</v-list-tile-content>
-                  <v-list-tile-content class="align-end">${{ item.totalLeft.toFixed(2) }}</v-list-tile-content>
+                  <v-list-tile-content class="align-end">{{ item.totalLeft | currency }}</v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile>
                   <v-list-tile-content>Sale Profit:</v-list-tile-content>
-                  <v-list-tile-content class="align-end">${{ item.sellProfit.toFixed(2) }}</v-list-tile-content>
+                  <v-list-tile-content class="align-end">{{ item.sellProfit | currency }}</v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile>
                   <v-list-tile-content>Net gane:</v-list-tile-content>
-                  <v-list-tile-content class="align-end">${{ net.toFixed(2) }}</v-list-tile-content>
+                  <v-list-tile-content class="align-end">{{ net | currency }}</v-list-tile-content>
                 </v-list-tile>
               </v-list>
             </v-tooltip>

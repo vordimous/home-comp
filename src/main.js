@@ -5,10 +5,22 @@ import VueAnalytics from 'vue-analytics'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
+import VueRoundFilter from 'vue-round-filter'
+import VueCurrencyFilter from 'vue-currency-filter'
+
 import App from './App'
 import router from './router'
 import store from './store'
 
+Vue.use(VueRoundFilter)
+Vue.use(VueCurrencyFilter, {
+  symbol: '$',
+  thousandsSeparator: ',',
+  fractionCount: 2,
+  fractionSeparator: '.',
+  symbolPosition: 'front',
+  symbolSpacing: true,
+})
 Vue.use(Vuetify)
 Vue.use(VueAnalytics, {
   id: 'UA-114744116-1',
