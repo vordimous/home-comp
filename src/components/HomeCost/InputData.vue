@@ -1,5 +1,5 @@
 <template>
- <v-container fluid>
+ <v-container fluid class="pt-1 pb-1">
     <v-layout row>
       <v-flex xs6 class="pa-1">
         <v-text-field
@@ -14,17 +14,6 @@
         <v-text-field
           label="Down Paymet"
           v-model="item.dp"
-          prefix="$"
-          @change="recalc"
-          hide-details
-          type="number"></v-text-field>
-      </v-flex>
-    </v-layout>
-    <v-layout row>
-      <v-flex xs6 class="pa-1" v-for="exp in item.yearlyExp" :key="exp.label">
-        <v-text-field
-          :label="`Yearly ${exp.label}`"
-          v-model="exp.value"
           prefix="$"
           @change="recalc"
           hide-details
@@ -107,6 +96,23 @@
           type="number"></v-text-field>
       </v-flex>
     </v-layout>
+     <v-layout row wrap align-center>
+      <v-flex xs8 class="pa-1">
+        <span>Yearly Expenses:</span>
+      </v-flex>
+      <v-flex xs4 class="pa-1">
+         <v-btn @click="addYearly" small color="success"><v-icon>add</v-icon></v-btn>
+      </v-flex>
+      <v-flex xs6 class="pa-1" v-for="exp in item.yearlyExp" :key="exp.label">
+        <v-text-field
+          :label="exp.label"
+          v-model="exp.value"
+          prefix="$"
+          @change="recalc"
+          hide-details
+          type="number"></v-text-field>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
@@ -167,10 +173,13 @@ export default {
       this.item.dp = (0.2 * this.item.pp).toFixed(2)
       this.recalc()
     },
+
+    addYearly() {
+      this.item.yearlyExp = this.item.yearlyExp.concat({ label: 'New Exp', value: 0 })
+    },
   },
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

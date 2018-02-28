@@ -9,16 +9,15 @@
       hide-details></v-text-field>
   </v-card-title>
   <v-divider></v-divider>
-  <v-container fluid class="pb-1">
+  <v-container fluid class="pb-1 pt-1 results">
     <v-layout row>
-      <v-flex xs5 class="pa-1">
-        <v-text-field
-          label="Monthly Payment"
-          disabled
-          :value="item.monPmt.toFixed(2)"
-          prefix="$"
-          hide-details
-          type="number"></v-text-field>
+      <v-flex xs11 class="pa-3">
+        <v-list dense>
+          <v-list-tile>
+            <v-list-tile-content><h3>Monthly Payment:</h3></v-list-tile-content>
+            <v-list-tile-content class="align-end"><h3>${{ item.monPmt.toFixed(2) }}</h3></v-list-tile-content>
+          </v-list-tile>
+        </v-list>
       </v-flex>
       <v-flex xs1 class="pa-0">
         <v-container text-xs-center fill-height class="pa-0">
@@ -37,7 +36,7 @@
                     <v-list-tile-content class="align-end">${{ item.propTax.toFixed(2) }}</v-list-tile-content>
                   </v-list-tile>
                   <v-list-tile>
-                    <v-list-tile-content>Homeowners Insurace:</v-list-tile-content>
+                    <v-list-tile-content class="pr-1">Homeowners Insurace:</v-list-tile-content>
                     <v-list-tile-content class="align-end">${{ item.insur.toFixed(2) }}</v-list-tile-content>
                   </v-list-tile>
                   <v-list-tile>
@@ -53,15 +52,6 @@
             </v-flex>
           </v-layout>
         </v-container>
-      </v-flex>
-      <v-flex xs6 class="pa-1">
-        <v-text-field
-          label="Mortgage Payment"
-          disabled
-          :value="item.morgPmt.toFixed(2)"
-          prefix="$"
-          hide-details
-          type="number"></v-text-field>
       </v-flex>
     </v-layout>
   </v-container>
