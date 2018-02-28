@@ -1,7 +1,7 @@
 <template>
 <v-content>
   <section>
-    <v-parallax src="static/img/assets/hero.jpeg" height="600">
+    <v-parallax src="static/img/assets/abstract.jpg" height="400">
       <v-layout
         column
         align-center
