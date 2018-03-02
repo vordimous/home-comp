@@ -15,7 +15,7 @@
               @input="changeCriteria({ monthlyInc: $event })"
               :min="minMonthlyInc"
               hide-details
-              class="pt-1 pl-1 pr-1"
+              class="pt-1 px-1"
               max="5000"
               step="50"></v-slider>
           </v-flex>
@@ -25,7 +25,7 @@
               :value="valIncrease"
               @input="changeCriteria({ valIncrease: $event })"
               hide-details
-              class="pt-1 pl-1 pr-1"
+              class="pt-1 px-1"
               max="0.1"
               min="-0.1"
               step="0.001"></v-slider>
@@ -36,7 +36,7 @@
               :value="years"
               @input="changeCriteria({ years: $event })"
               hide-details
-              class="pt-1 pl-1 pr-1"
+              class="pt-1 px-1"
               max="50"></v-slider>
           </v-flex>
           <v-flex xs4 sm2 md1 class="ma-0 pa-0">

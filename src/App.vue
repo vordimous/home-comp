@@ -8,7 +8,7 @@
       hidden-xs-only>
       <v-list>
         <v-list-tile  to="/">
-          <v-list-tile-avatar>
+          <v-list-tile-avatar tile>
             <img src="static/img/icons/apple-touch-icon.png" >
           </v-list-tile-avatar>
         </v-list-tile>
@@ -68,10 +68,4 @@ export default {
 </script>
 
 <style scoped>
-.list__tile__action, .list__tile__avatar, .list__tile__action .input-group--selection-controls{
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  min-width: 48px;
-}
 </style>

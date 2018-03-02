@@ -1,6 +1,6 @@
 {
-  "name": "home-comp",
-  "short_name": "home-comp",
+  "name": "Real Cost Calculators",
+  "short_name": "Real Cost",
   "icons": [
     {
       "src": "/static/img/icons/android-chrome-192x192.png",

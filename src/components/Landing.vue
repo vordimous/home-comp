@@ -1,7 +1,7 @@
 <template>
 <v-content>
   <section>
-    <v-parallax src="static/img/assets/abstract.jpg" height="400">
+    <v-parallax src="static/img/assets/redox01L.png" height="400">
       <v-layout
         column
         align-center
@@ -71,77 +71,48 @@
     </v-layout>
   </section>
 
-  <!-- <section>
-    <v-parallax src="static/img/assets/section.jpg" height="380">
+  <section>
+    <v-parallax src="static/img/assets/redox01.png" height="380">
       <v-layout column align-center justify-center>
-        <div class="headline white--text mb-3 text-xs-center">Web development has never been easier</div>
-        <em>Kick-start your application today</em>
+        <div class="headline white--text mb-3 text-xs-center">Did you Like the App?</div>
+        <em>Help me continue to build more tools to help people.</em>
         <v-btn
-          class="blue lighten-2 mt-5"
-          dark
+          class="red lighten-1 mt-5"
           large
-          href="/pre-made-themes"
-        >
-          Get Started
+          href="https://www.patreon.com/Vordimous">
+          <v-icon >fab fa-patreon</v-icon><span class="pl-2">Support me on Patreon</span>
         </v-btn>
       </v-layout>
     </v-parallax>
   </section>
 
   <section>
-    <v-container grid-list-xl>
-      <v-layout row wrap justify-center class="my-5">
-        <v-flex xs12 sm4>
-          <v-card class="elevation-0 transparent">
-            <v-card-title primary-title class="layout justify-center">
-              <div class="headline">Company info</div>
-            </v-card-title>
-            <v-card-text>
-              Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
-              Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-              Nullam in aliquet odio. Aliquam eu est vitae tellus bibendum tincidunt. Suspendisse potenti.
-            </v-card-text>
-          </v-card>
+    <v-container grid-list-xl class="px-0">
+      <v-layout row wrap class="my-5">
+        <v-flex xs12 sm6 text-xs-center>
+          <v-avatar
+            size="256">
+            <img src="/static/img/assets/me.jpg" alt="AJ Danelz">
+          </v-avatar>
         </v-flex>
-        <v-flex xs12 sm4 offset-sm1>
+        <v-flex xs12 sm6>
           <v-card class="elevation-0 transparent">
             <v-card-title primary-title class="layout justify-center">
-              <div class="headline">Contact us</div>
+              <div class="headline">About Me</div>
             </v-card-title>
             <v-card-text>
-              Cras facilisis mi vitae nunc lobortis pharetra. Nulla volutpat tincidunt ornare.
+              I love making tools that empower people. Software has the ability to make a problem solvable by anyone.
+              I want to be able to write and maintain applications that can help everyday people get the answers they need.
+              I don't want to be hindered by software licensing or needing a minimum number of user with a viable business
+              plan for investors to fund. Technology should be available to help everyone and there is no time like the
+              present to make that happen. I hope you join me in growing a community to build, fix, and improve software
+              tools for everyone!
             </v-card-text>
-            <v-list class="transparent">
-              <v-list-tile>
-                <v-list-tile-action>
-                  <v-icon class="blue--text text--lighten-2">phone</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title>777-867-5309</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-              <v-list-tile>
-                <v-list-tile-action>
-                  <v-icon class="blue--text text--lighten-2">place</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title>Chicago, US</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-              <v-list-tile>
-                <v-list-tile-action>
-                  <v-icon class="blue--text text--lighten-2">email</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-content>
-                  <v-list-tile-title>john@vuetifyjs.com</v-list-tile-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-list>
           </v-card>
         </v-flex>
       </v-layout>
     </v-container>
-  </section> -->
+  </section>
 </v-content>
 </template>
 
