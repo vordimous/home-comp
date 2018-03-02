@@ -1,13 +1,13 @@
 <template>
 <v-content>
   <section>
-    <v-parallax src="static/img/assets/redox01L.png" height="400">
+    <v-parallax src="img/assets/redox01L.png" height="400">
       <v-layout
         column
         align-center
         justify-center
         class="white--text">
-        <img src="static/img/assets/logo.png" alt="Real Cost Calculators" height="200">
+        <img src="img/assets/logo.png" alt="Real Cost Calculators" height="200">
         <h1 class="white--text mb-2 display-1 text-xs-center">Real Cost Calculators</h1>
         <div class="subheading mb-3 text-xs-center">Get all of the Facts</div>
       </v-layout>
@@ -35,7 +35,7 @@
             <v-flex xs12 md6>
               <v-card class="elevation-0 transparent">
                 <v-card-text class="text-xs-center">
-                  <v-btn fab large color="orange darken-3" to="/home">
+                  <v-btn fab large color="orange darken-3" to="/home-purchase-cost-compare">
                     <v-icon x-large>fas fa-home</v-icon>
                   </v-btn>
                 </v-card-text>
@@ -72,7 +72,7 @@
   </section>
 
   <section>
-    <v-parallax src="static/img/assets/redox01.png" height="380">
+    <v-parallax src="img/assets/redox01.png" height="380">
       <v-layout column align-center justify-center>
         <div class="headline white--text mb-3 text-xs-center">Did you Like the App?</div>
         <em>Help me continue to build more tools to help people.</em>
@@ -92,7 +92,7 @@
         <v-flex xs12 sm6 text-xs-center>
           <v-avatar
             size="256">
-            <img src="/static/img/assets/me.jpg" alt="AJ Danelz">
+            <img src="/img/assets/me.jpg" alt="AJ Danelz">
           </v-avatar>
         </v-flex>
         <v-flex xs12 sm6>

@@ -9,7 +9,7 @@
       <v-list>
         <v-list-tile  to="/">
           <v-list-tile-avatar tile>
-            <img src="static/img/icons/apple-touch-icon.png" >
+            <img src="img/icons/apple-touch-icon.png" >
           </v-list-tile-avatar>
         </v-list-tile>
         <v-tooltip right v-for="item in items" :key="item.title">
@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       items: [
-        { title: 'Home Cost', icon: 'fas fa-home', path: '/home' },
+        { title: 'Home Cost Compare', icon: 'fas fa-home', path: '/home-purchase-cost-compare' },
         { title: 'Discussion', icon: 'question_answer', path: '/discuss' },
       ],
       mini: true,

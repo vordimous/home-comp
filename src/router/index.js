@@ -14,7 +14,7 @@ export default new Router({
       component: Landing,
     },
     {
-      path: '/home',
+      path: '/home-purchase-cost-compare',
       name: 'Home',
       component: Calculator,
     },
