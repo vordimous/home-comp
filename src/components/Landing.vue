@@ -74,14 +74,24 @@
   <section>
     <v-parallax src="img/assets/redox01.png" height="380">
       <v-layout column align-center justify-center>
-        <div class="headline white--text mb-3 text-xs-center">Did you Like the App?</div>
-        <em>Help me continue to build more tools to help people.</em>
-        <v-btn
-          class="red lighten-1 mt-5"
-          large
-          href="https://www.patreon.com/Vordimous">
-          <v-icon >fab fa-patreon</v-icon><span class="pl-2">Support me on Patreon</span>
-        </v-btn>
+        <div>
+          <div class="headline white--text mb-3 text-xs-center">Did you Like the App?</div>
+          <em>Help me continue to build more tools to help people.</em>
+        </div>
+        <div class="text-xs-center">
+          <v-btn
+            class="red lighten-1 mt-5"
+            large
+            href="https://www.patreon.com/Vordimous">
+            <v-icon>fab fa-patreon</v-icon><span class="pl-2">Support me on Patreon</span>
+          </v-btn>
+          <v-btn
+            class="orange mt-5"
+            large
+            href="https://buymeacoff.ee/tkqlav4bp">
+            <v-icon>fas fa-coffee</v-icon><span class="pl-2">Buy me a Coffee</span>
+          </v-btn>
+        </div>
       </v-layout>
     </v-parallax>
   </section>
